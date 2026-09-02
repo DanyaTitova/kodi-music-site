@@ -897,10 +897,17 @@ function initMap() {
      * =========================================================
      */
 
-    const TELEGRAM_BOT_TOKEN = '8860439275:AAFZP25yCAgSgJqacUja4pfs_vKTzdR5atU'; 
-    const TELEGRAM_CHAT_ID = '1314400594';
+    const TELEGRAM_BOT_TOKEN = 'ВСТАВЬ_СЮДА_ТОКЕН_БОТА'; 
 
-    async function sendToTelegram(messageText) {
+    // ID по умолчанию (например, для формы в футере или если филиал не выбран)
+    const DEFAULT_CHAT_ID = '22222'; 
+
+    // ID для разных филиалов
+    const CHAT_ID_DOLGOPRUDNY = '111111';
+    const CHAT_ID_FLOTSKAYA = '22222';
+
+    // Функция отправки сообщений (принимает текст и конкретный chatId)
+    async function sendToTelegram(messageText, chatId = DEFAULT_CHAT_ID) {
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         
         const response = await fetch(url, {
@@ -909,7 +916,7 @@ function initMap() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
+                chat_id: chatId,
                 text: messageText,
                 parse_mode: 'HTML'
             })
@@ -921,7 +928,7 @@ function initMap() {
         return await response.json();
     }
 
-    // 1. Форма в модальном окне
+    // 1. Модальная форма записи с распределением по филиалам
     const bookingForm = document.getElementById('bookingForm');
 
     bookingForm?.addEventListener('submit', async (event) => {
@@ -935,13 +942,19 @@ function initMap() {
         const submitBtn = document.getElementById('submitBtn');
         if (submitBtn) submitBtn.disabled = true;
 
-        const branch = document.getElementById('branchSelect')?.value || '-';
+        const branch = document.getElementById('branchSelect')?.value || '';
         const contactMethod = document.getElementById('contactMethodSelect')?.value || '-';
         const name = document.getElementById('userNameInput')?.value || '-';
         const contact = document.getElementById('userContactInput')?.value || '-';
         const direction = document.getElementById('directionSelect')?.value || '-';
 
-        const text = `<b>🔥 Заявка на бесплатный урок!</b>\n\n` +
+        // Выбираем получателя в зависимости от выбранного филиала
+        let targetChatId = CHAT_ID_FLOTSKAYA; // По умолчанию — Флотская
+        if (branch.includes('Долгопрудный') || branch.includes('dolgoprudny')) {
+            targetChatId = CHAT_ID_DOLGOPRUDNY;
+        }
+
+        const text = `<b>🔥 Новая заявка на бесплатный урок!</b>\n\n` +
                      `<b>Филиал:</b> ${branch}\n` +
                      `<b>Направление:</b> ${direction}\n` +
                      `<b>Имя:</b> ${name}\n` +
@@ -949,7 +962,7 @@ function initMap() {
                      `<b>Способ связи:</b> ${contactMethod}`;
 
         try {
-            await sendToTelegram(text);
+            await sendToTelegram(text, targetChatId);
             alert('Заявка успешно отправлена!');
             closeBookingModal();
             bookingForm.reset();
@@ -961,7 +974,7 @@ function initMap() {
         }
     });
 
-    // 2. Форма в футере сайта
+    // 2. Форма в футере (отправляет на DEFAULT_CHAT_ID)
     const footerContactsForm = document.getElementById('footerContactsForm');
 
     footerContactsForm?.addEventListener('submit', async (event) => {
@@ -979,13 +992,13 @@ function initMap() {
         const contact = document.getElementById('footerContact')?.value || '-';
         const method = document.getElementById('footerMethod')?.value || '-';
 
-        const text = `<b>📩 Заявка из футера</b>\n\n` +
+        const text = `<b>📩 Заявка из контактов (футер)</b>\n\n` +
                      `<b>Имя:</b> ${name}\n` +
                      `<b>Контакт:</b> ${contact}\n` +
                      `<b>Способ связи:</b> ${method}`;
 
         try {
-            await sendToTelegram(text);
+            await sendToTelegram(text, DEFAULT_CHAT_ID);
             alert('Заявка успешно отправлена!');
             footerContactsForm.reset();
         } catch (error) {
