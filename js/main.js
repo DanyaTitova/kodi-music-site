@@ -1,815 +1,939 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
 
-    /* =====================================================
-       YANDEX MAP
-    ===================================================== */
+    /*
+     * =========================================================
+     * ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+     * =========================================================
+     */
 
-    if (typeof ymaps !== "undefined") {
-
-        ymaps.ready(function () {
-
-            const mapElement = document.getElementById("yandexMap");
-
-            if (!mapElement) return;
-
-            const map = new ymaps.Map("yandexMap", {
-                center: [55.9495, 37.5143],
-                zoom: 13,
-                controls: [
-                    "zoomControl"
-                ]
-            });
-
-            /*
-             * Долгопрудный
-             */
-            const dolgoprudny = new ymaps.Placemark(
-                [55.9495, 37.5143],
-                {
-                    balloonContent:
-                        "<strong>KODI MUSIC CLASS</strong><br>Долгопрудный, Новый бульвар, 22"
-                },
-                {
-                    preset: "islands#orangeIcon"
-                }
-            );
-
-            /*
-             * Москва, Флотская
-             */
-            const moscow = new ymaps.Placemark(
-                [55.8517, 37.4925],
-                {
-                    balloonContent:
-                        "<strong>KODI MUSIC CLASS</strong><br>Москва, Флотская ул., 7, корп. 1"
-                },
-                {
-                    preset: "islands#orangeIcon"
-                }
-            );
-
-            map.geoObjects.add(dolgoprudny);
-            map.geoObjects.add(moscow);
-
+    function setText(selector, value, useHTML = false) {
+        document.querySelectorAll(selector).forEach((element) => {
+            if (useHTML) {
+                element.innerHTML = value;
+            } else {
+                element.textContent = value;
+            }
         });
+    }
 
+    function updateBodyLock() {
+        const hasOpenModal = document.querySelector('.modal-overlay.active');
+
+        body.classList.toggle('modal-open', Boolean(hasOpenModal));
+    }
+
+    function openOverlay(overlay) {
+        if (!overlay) return;
+
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        updateBodyLock();
+
+        const focusTarget = overlay.querySelector(
+            'select, input, button:not(.modal-close), textarea'
+        );
+
+        window.setTimeout(() => {
+            focusTarget?.focus({ preventScroll: true });
+        }, 50);
+    }
+
+    function closeOverlay(overlay) {
+        if (!overlay) return;
+
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        updateBodyLock();
     }
 
 
-    /* =====================================================
-       MOBILE MENU
-    ===================================================== */
+    /*
+     * =========================================================
+     * МОБИЛЬНОЕ МЕНЮ
+     * =========================================================
+     */
+    /* Инициализация Яндекс Карт */
+if (typeof ymaps !== 'undefined') {
+    ymaps.ready(initMap);
+}
 
-    const mobileMenuButton =
-        document.getElementById("mobileMenuButton");
+function initMap() {
+    const mapElement = document.getElementById('yandexMap');
+    if (!mapElement) return;
 
-    const mainNav =
-        document.getElementById("mainNav");
+    const map = new ymaps.Map('yandexMap', {
+        center: [55.875, 37.485], // Центрирование между Москвой и Долгопрудным
+        zoom: 11,
+        controls: ['zoomControl']
+    });
 
+    // Филиал в Долгопрудном
+    const dolgoprudnyPlacemark = new ymaps.Placemark([55.9398, 37.5142], {
+        balloonContentHeader: 'KODI MUSIC CLASS',
+        balloonContentBody: 'г. Долгопрудный, ул. Новый бульвар, д. 22',
+        hintContent: 'KODI — Долгопрудный'
+    }, {
+        preset: 'islands#orangeDotIcon'
+    });
+
+    // Филиал в Москве
+    const moscowPlacemark = new ymaps.Placemark([55.8562, 37.4862], {
+        balloonContentHeader: 'KODI MUSIC CLASS',
+        balloonContentBody: 'г. Москва, Флотская ул., 7, корп. 1',
+        hintContent: 'KODI — Москва'
+    }, {
+        preset: 'islands#orangeDotIcon'
+    });
+
+    map.geoObjects.add(dolgoprudnyPlacemark);
+    map.geoObjects.add(moscowPlacemark);
+    map.behaviors.disable('scrollZoom');
+}
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mainNav = document.getElementById('mainNav');
+
+    function closeMobileMenu() {
+        if (!mobileMenuButton || !mainNav) return;
+
+        mainNav.classList.remove('mobile-open');
+        mobileMenuButton.classList.remove('active');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.setAttribute('aria-label', 'Открыть меню');
+    }
+
+    function openMobileMenu() {
+        if (!mobileMenuButton || !mainNav) return;
+
+        mainNav.classList.add('mobile-open');
+        mobileMenuButton.classList.add('active');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+        mobileMenuButton.setAttribute('aria-label', 'Закрыть меню');
+    }
 
     if (mobileMenuButton && mainNav) {
+        mobileMenuButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-        mobileMenuButton.addEventListener("click", function () {
-
-            const isOpen =
-                mainNav.classList.toggle("active");
-
-            mobileMenuButton.classList.toggle(
-                "active",
-                isOpen
-            );
-
-            mobileMenuButton.setAttribute(
-                "aria-expanded",
-                isOpen ? "true" : "false"
-            );
-
-            document.body.classList.toggle(
-                "menu-open",
-                isOpen
-            );
-
+            if (mainNav.classList.contains('mobile-open')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
         });
 
-
-        /*
-         * Закрываем меню после нажатия
-         * на пункт навигации
-         */
-
-        const navLinks =
-            mainNav.querySelectorAll("a");
-
-        navLinks.forEach(function (link) {
-
-            link.addEventListener("click", function () {
-
-                mainNav.classList.remove("active");
-
-                mobileMenuButton.classList.remove("active");
-
-                mobileMenuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                document.body.classList.remove(
-                    "menu-open"
-                );
-
-            });
-
+        mainNav.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', closeMobileMenu);
         });
 
+        document.addEventListener('click', (event) => {
+            if (
+                mainNav.classList.contains('mobile-open') &&
+                !mainNav.contains(event.target) &&
+                !mobileMenuButton.contains(event.target)
+            ) {
+                closeMobileMenu();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+                closeMobileMenu();
+            }
+        });
     }
 
 
-    /* =====================================================
-       FLIP CARDS
-    ===================================================== */
+    /*
+     * =========================================================
+     * ПЕРЕВОРОТ КАРТОЧЕК
+     * =========================================================
+     */
 
-    const flipContainers =
-        document.querySelectorAll(".flip-container");
+    document.querySelectorAll('.flip-container').forEach((container) => {
+        const toggles = container.querySelectorAll('.flip-toggle');
 
+        toggles.forEach((toggle) => {
+            toggle.setAttribute('role', 'button');
+            toggle.setAttribute('tabindex', '0');
+            toggle.setAttribute('aria-expanded', 'false');
 
-    flipContainers.forEach(function (container) {
+            const flipCard = () => {
+                const isFlipped = container.classList.toggle('flipped');
 
-        const card =
-            container.querySelector(".flip-card");
+                toggles.forEach((item) => {
+                    item.setAttribute('aria-expanded', String(isFlipped));
+                });
+            };
 
-        if (!card) return;
-
-
-        /*
-         * Кнопки "Педагоги" и "Назад"
-         */
-
-        const flipButtons =
-            container.querySelectorAll(".flip-toggle");
-
-
-        flipButtons.forEach(function (button) {
-
-            button.addEventListener("click", function (event) {
-
+            toggle.addEventListener('click', (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-
-                card.classList.toggle("flipped");
-
+                flipCard();
             });
 
+            toggle.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    flipCard();
+                }
+            });
         });
-
-
-        /*
-         * На мобильном можно нажимать
-         * на карточку целиком.
-         */
-
-        container.addEventListener(
-            "click",
-            function (event) {
-
-                if (window.innerWidth > 768) {
-                    return;
-                }
-
-                /*
-                 * Если нажали на кнопку записи,
-                 * карточку не переворачиваем.
-                 */
-
-                if (
-                    event.target.closest(
-                        ".open-modal-btn"
-                    )
-                ) {
-                    return;
-                }
-
-
-                /*
-                 * Если нажали на стрелку,
-                 * обработчик выше уже сработал.
-                 */
-
-                if (
-                    event.target.closest(
-                        ".flip-toggle"
-                    )
-                ) {
-                    return;
-                }
-
-
-                card.classList.toggle("flipped");
-
-            }
-        );
-
     });
 
 
-    /* =====================================================
-       BOOKING MODAL
-    ===================================================== */
+    /*
+     * =========================================================
+     * МОДАЛЬНОЕ ОКНО ЗАПИСИ
+     * =========================================================
+     */
 
-    const modalOverlay =
-        document.getElementById("modalOverlay");
+    const bookingModal = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const directionSelect = document.getElementById('directionSelect');
 
-    const modalClose =
-        document.getElementById("modalClose");
-
-    const openModalButtons =
-        document.querySelectorAll(".open-modal-btn");
-
-
-    function openBookingModal(direction) {
-
-        if (!modalOverlay) return;
-
-        modalOverlay.classList.add("active");
-
-        document.body.classList.add("modal-open");
-
-        /*
-         * Если нажали "Записаться" внутри
-         * определённого направления —
-         * автоматически выбираем его.
-         */
-
-        if (direction) {
-
-            const directionSelect =
-                document.getElementById("directionSelect");
-
-            if (directionSelect) {
-
-                const options =
-                    directionSelect.options;
-
-                for (let i = 0; i < options.length; i++) {
-
-                    if (
-                        options[i].value === direction ||
-                        options[i].textContent === direction
-                    ) {
-
-                        directionSelect.selectedIndex = i;
-
-                        break;
-                    }
-
-                }
-
-            }
-
-        }
-
+    if (bookingModal) {
+        bookingModal.setAttribute('aria-hidden', 'true');
     }
 
+    function openBookingModal(directionValue = '') {
+        if (!bookingModal) return;
+
+        /*
+         * Значения option не переводятся.
+         * Благодаря этому выбор направления работает как
+         * в русской, так и в английской версии.
+         */
+        if (directionValue && directionSelect) {
+            const matchingOption = Array.from(directionSelect.options).find(
+                (option) => option.value === directionValue
+            );
+
+            if (matchingOption) {
+                directionSelect.value = matchingOption.value;
+            }
+        }
+
+        closeMobileMenu();
+        openOverlay(bookingModal);
+    }
 
     function closeBookingModal() {
-
-        if (!modalOverlay) return;
-
-        modalOverlay.classList.remove("active");
-
-        document.body.classList.remove("modal-open");
-
+        closeOverlay(bookingModal);
     }
 
-
-    openModalButtons.forEach(function (button) {
-
-        button.addEventListener("click", function (event) {
-
+    document.querySelectorAll('.open-modal-btn').forEach((button) => {
+        button.addEventListener('click', (event) => {
             event.preventDefault();
+            event.stopPropagation();
 
-            const direction =
-                button.getAttribute("data-direction");
-
+            const direction = button.dataset.direction || '';
             openBookingModal(direction);
-
         });
+    });
 
+    modalClose?.addEventListener('click', closeBookingModal);
+
+    bookingModal?.addEventListener('click', (event) => {
+        if (event.target === bookingModal) {
+            closeBookingModal();
+        }
     });
 
 
-    if (modalClose) {
+    /*
+     * =========================================================
+     * МОДАЛЬНОЕ ОКНО ПОЛИТИКИ
+     * =========================================================
+     */
 
-        modalClose.addEventListener(
-            "click",
-            closeBookingModal
-        );
+    const privacyModal = document.getElementById('privacyModal');
+    const privacyClose = document.querySelector('.privacy-modal-close');
 
+    if (privacyModal) {
+        privacyModal.setAttribute('aria-hidden', 'true');
     }
+
+    document.querySelectorAll('.open-privacy-modal').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            closeMobileMenu();
+            openOverlay(privacyModal);
+        });
+    });
+
+    privacyClose?.addEventListener('click', () => {
+        closeOverlay(privacyModal);
+    });
+
+    privacyModal?.addEventListener('click', (event) => {
+        if (event.target === privacyModal) {
+            closeOverlay(privacyModal);
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+
+        closeMobileMenu();
+        closeOverlay(bookingModal);
+        closeOverlay(privacyModal);
+    });
 
 
     /*
-     * Закрытие по клику на затемнение
+     * =========================================================
+     * ЛОКАЛИЗАЦИЯ
+     * =========================================================
      */
 
-    if (modalOverlay) {
+    const languageSwitch = document.getElementById('languageSwitch');
+    let currentLanguage = 'ru';
 
-        modalOverlay.addEventListener(
-            "click",
-            function (event) {
+    const translations = {
+        ru: {
+            nav: [
+                'О СТУДИИ',
+                'НАПРАВЛЕНИЯ',
+                'СЕРТИФИКАТЫ',
+                'ОТЗЫВЫ',
+                'КОНТАКТЫ'
+            ],
 
-                if (event.target === modalOverlay) {
+            heroTop: 'MUSIC / PEOPLE / HOME',
+            heroSubtitle: 'Музыкальная школа в Москве и Долгопрудном',
+            heroButton: 'Записаться на урок',
+            freeLesson: '• ПЕРВЫЙ УРОК БЕСПЛАТНО •',
+            location: 'МОСКВА / ДОЛГОПРУДНЫЙ',
+            scroll: 'SCROLL ↓',
 
-                    closeBookingModal();
+            aboutLabel: '01 / О СТУДИИ',
+            aboutTitle: 'МУЗЫКА<br><span>- твой дом.</span>',
+            aboutP1:
+                '<strong>KODI</strong> в переводе с финского «ДОМ». И это не случайно: мы создали пространство, где не страшно ошибаться, а обучение приносит удовольствие и быстрые результаты.',
+            aboutP2:
+                'Руководитель студии — Василий Рыбин, известный музыкант и режиссёр. Музыка появилась в его жизни в 3 года — всё началось с барабанов, именно эта искренняя любовь к инструменту легла в основу его подхода.',
+            aboutP3:
+                'В KODI мы помогаем раскрыть вкус и стиль: не учим «как правильно», а учим «как твоё».',
+            aboutP4: 'Добро пожаловать домой, в KODI!',
+            founderRole: 'Основатель &amp; Руководитель KODI',
 
+            directionsLabel: '02 / НАПРАВЛЕНИЯ',
+            teachers: 'Педагоги',
+            back: 'Назад',
+            teachersHeading: 'ПЕДАГОГИ',
+            book: 'Записаться',
+
+            cards: [
+                {
+                    title: 'Вокал',
+                    description:
+                        'Раскрывает эмоциональную выразительность и артистизм.',
+                    teacher: 'Илья Мичурин',
+                    experience: 'Преподаватель вокала / Опыт сцены'
+                },
+                {
+                    title: 'Гитара (Электро/Акустика)',
+                    description:
+                        'Тренирует мелкую моторику и понимание гармонии.',
+                    teacher: 'Преподаватель гитары',
+                    experience: 'Концертный музыкант'
+                },
+                {
+                    title: 'Фортепиано',
+                    description:
+                        'Совершенствует музыкальный слух и синхронную работу обеих рук.',
+                    teacher: 'Преподаватель фортепиано',
+                    experience: 'Лауреат конкурсов'
+                },
+                {
+                    title: 'Ударные',
+                    description:
+                        'Развивают чувство ритма и координацию движений.',
+                    teacher: 'Константин',
+                    experience: 'Преподаватель ударных / Сессионный барабанщик'
                 }
+            ],
 
-            }
-        );
+            certificatesLabel: '03 / СЕРТИФИКАТЫ',
+            certLessons: ['4 занятия', '8 занятий'],
+            cert1: 'ДОЛГОПРУДНЫЙ',
+            cert2: 'МОСКВА (ФЛОТСКАЯ)',
+            certTitle: 'ПОДАРОЧНЫЙ<br>СЕРТИФИКАТ',
 
-    }
+            reviewsLabel: '04 / ОТЗЫВЫ',
+            reviewsTitle: 'ОТЗЫВЫ УЧЕНИКОВ',
 
+            reviews: [
+                '«Хорошая музыкальная школа с классным обучением! Преподаватели внимательные и профессиональные, занятия проходят интересно и вдохновляюще. Результаты заметны быстро, рекомендую для всех, кто хочет научиться музыке.»',
+                '«Хорошая школа. Современный ремонт, приятно находиться внутри. Очень творческая атмосфера, современное оборудование. Хожу на вокал к Илье Мичурину. Очень нравится подход педагога, объясняет все очень понятно. С первых занятий уже был небольшой результат и прогресс»',
+                '«Я очень довольна уроками, которые я получаю в музыкальной школе KODI. Преподаватель по барабанам — Константин профессионально подходит к обучению и создаёт тёплую и поддерживающую атмосферу. Очень рекомендую эту школу всем, кто хочет развивать свой музыкальный талант! 😍❤️»'
+            ],
 
-    /* =====================================================
-       ESC — ЗАКРЫТИЕ МОДАЛОК
-    ===================================================== */
+            posterBy: 'by Vasilii Rybin',
 
-    document.addEventListener(
-        "keydown",
-        function (event) {
+            contactsLabel: '05 / КОНТАКТЫ',
+            namePlaceholder: 'Ваше Имя',
+            methodLabel: 'Удобный способ связи',
+            consentPrefix: 'Я ознакомлен(а) с',
+            privacy: 'Политикой обработки персональных данных',
+            send: 'Отправить заявку',
 
-            if (event.key === "Escape") {
+            modalTitle: 'БЕСПЛАТНЫЙ УРОК',
+            modalSubtitle:
+                'Заполните форму и выберите удобный способ связи.',
+            branch: 'Филиал',
+            contactHow: 'Как с вами связаться?',
+            yourName: 'Ваше имя',
+            phoneNick: 'Номер телефона / никнейм',
+            direction: 'Направление',
+            callback: 'Обратный звонок',
 
-                closeBookingModal();
+            branches: [
+                'г. Долгопрудный, ул. Новый бульвар, д. 22',
+                'г. Москва, Флотская ул., 7, корп. 1'
+            ],
 
-            }
+            methods: [
+                'Обратный звонок',
+                'Telegram',
+                'WhatsApp'
+            ],
 
+            directionOptions: [
+                'Вокал',
+                'Гитара (Электро/Акустика)',
+                'Фортепиано',
+                'Барабаны'
+            ]
+        },
+
+        en: {
+            nav: [
+                'ABOUT',
+                'DIRECTIONS',
+                'CERTIFICATES',
+                'REVIEWS',
+                'CONTACTS'
+            ],
+
+            heroTop: 'MUSIC / PEOPLE / HOME',
+            heroSubtitle: 'Music school in Moscow and Dolgoprudny',
+            heroButton: 'Book a lesson',
+            freeLesson: '• FIRST LESSON FREE •',
+            location: 'MOSCOW / DOLGOPRUDNY',
+            scroll: 'SCROLL ↓',
+
+            aboutLabel: '01 / ABOUT',
+            aboutTitle: 'MUSIC<br><span>- feels like home.</span>',
+            aboutP1:
+                '<strong>KODI</strong> means “HOME” in Finnish. We created a space where everyone feels comfortable making mistakes and learning brings joy and fast results.',
+            aboutP2:
+                'The studio is led by Vasilii Rybin, a musician and director. Music entered his life at age three — it all started with drums, and this sincere love for the instrument became the foundation of his approach.',
+            aboutP3:
+                'At KODI, we help discover taste and style: we do not teach “what is right”, we teach “what is yours”.',
+            aboutP4: 'Welcome home, to KODI!',
+            founderRole: 'Founder &amp; Head of KODI',
+
+            directionsLabel: '02 / DIRECTIONS',
+            teachers: 'Teachers',
+            back: 'Back',
+            teachersHeading: 'TEACHERS',
+            book: 'Book now',
+
+            cards: [
+                {
+                    title: 'Vocal',
+                    description:
+                        'Develops emotional expression and stage presence.',
+                    teacher: 'Ilya Michurin',
+                    experience: 'Vocal teacher / Stage experience'
+                },
+                {
+                    title: 'Guitar (Electric/Acoustic)',
+                    description:
+                        'Develops fine motor skills and understanding of harmony.',
+                    teacher: 'Guitar teacher',
+                    experience: 'Concert musician'
+                },
+                {
+                    title: 'Piano',
+                    description:
+                        'Improves musical hearing and coordination of both hands.',
+                    teacher: 'Piano teacher',
+                    experience: 'Competition laureate'
+                },
+                {
+                    title: 'Drums',
+                    description:
+                        'Develops rhythm and movement coordination.',
+                    teacher: 'Konstantin',
+                    experience: 'Drums teacher / Session drummer'
+                }
+            ],
+
+            certificatesLabel: '03 / CERTIFICATES',
+            certLessons: ['4 lessons', '8 lessons'],
+            cert1: 'DOLGOPRUDNY',
+            cert2: 'MOSCOW (FLOTSKAYA)',
+            certTitle: 'GIFT<br>CERTIFICATE',
+
+            reviewsLabel: '04 / REVIEWS',
+            reviewsTitle: 'STUDENT REVIEWS',
+
+            reviews: [
+                '“A great music school with excellent teaching! The teachers are attentive and professional, and the lessons are interesting and inspiring. The results come quickly.”',
+                '“A great school with a modern interior, creative atmosphere and modern equipment. I take vocal lessons with Ilya Michurin and really like his approach.”',
+                '“I am very happy with the lessons at KODI. The drum teacher Konstantin is professional and creates a warm, supportive atmosphere. I highly recommend this school!”'
+            ],
+
+            posterBy: 'by Vasilii Rybin',
+
+            contactsLabel: '05 / CONTACTS',
+            namePlaceholder: 'Your name',
+            methodLabel: 'Preferred contact method',
+            consentPrefix: 'I have read and agree to',
+            privacy: 'Privacy Policy',
+            send: 'Send request',
+
+            modalTitle: 'FREE LESSON',
+            modalSubtitle:
+                'Fill in the form and choose a convenient way to contact you.',
+            branch: 'Branch',
+            contactHow: 'How can we contact you?',
+            yourName: 'Your name',
+            phoneNick: 'Phone number / username',
+            direction: 'Direction',
+            callback: 'Phone call',
+
+            branches: [
+                'Dolgoprudny, Novy Boulevard, 22',
+                'Moscow, Flotskaya St., 7, bldg. 1'
+            ],
+
+            methods: [
+                'Phone call',
+                'Telegram',
+                'WhatsApp'
+            ],
+
+            directionOptions: [
+                'Vocal',
+                'Guitar (Electric/Acoustic)',
+                'Piano',
+                'Drums'
+            ]
         }
-    );
+    };
 
-
-    /* =====================================================
-       TELEGRAM
-    ===================================================== */
 
     /*
-     * ВСТАВЬ НОВЫЙ ТОКЕН СЮДА:
-     *
-     * const BOT_TOKEN = "123456:ABC...";
-     *
-     * Старый токен, который был раньше в коде,
-     * лучше обязательно перевыпустить.
+     * Обновляет текст option, но сохраняет исходные value.
+     * Это устраняет конфликт между локализацией и
+     * data-direction у кнопок карточек.
      */
+    function updateSelectOptions(select, labels) {
+        if (!select || !labels) return;
 
-    const BOT_TOKEN =
-        "YOUR_BOT_TOKEN";
+        Array.from(select.options).forEach((option, index) => {
+            if (labels[index]) {
+                option.textContent = labels[index];
+            }
+        });
+    }
 
-    const CHAT_ID =
-        "1314400594";
+    function applyLanguage(language) {
+        const t = translations[language];
 
+        if (!t) return;
 
-    async function sendToTelegram(message) {
+        currentLanguage = language;
+        document.documentElement.lang = language;
 
-        if (
-            !BOT_TOKEN ||
-            BOT_TOKEN === "YOUR_BOT_TOKEN"
-        ) {
-
-            console.error(
-                "Telegram BOT_TOKEN не указан."
-            );
-
-            return false;
+        if (languageSwitch) {
+            languageSwitch.textContent = language === 'ru' ? 'EN' : 'RU';
         }
 
+        document.querySelectorAll('.nav a').forEach((element, index) => {
+            if (t.nav[index]) {
+                element.textContent = t.nav[index];
+            }
+        });
 
-        const url =
-            "https://api.telegram.org/bot" +
-            BOT_TOKEN +
-            "/sendMessage";
+        setText('.hero-top', t.heroTop);
+        setText('.hero-subtitle', t.heroSubtitle);
+        setText('.hero-booking-button', t.heroButton);
+        setText('.btn-round-text textPath', t.freeLesson);
+        setText('.hero-bottom span:nth-child(1)', t.location);
+        setText('.hero-bottom span:nth-child(2)', t.scroll);
 
+        const sectionLabels = document.querySelectorAll('.section-label');
 
-        try {
+        if (sectionLabels[0]) {
+            sectionLabels[0].textContent = t.aboutLabel;
+        }
 
-            const response =
-                await fetch(url, {
+        if (sectionLabels[1]) {
+            sectionLabels[1].textContent = t.directionsLabel;
+        }
 
-                    method: "POST",
+        if (sectionLabels[2]) {
+            sectionLabels[2].textContent = t.certificatesLabel;
+        }
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+        if (sectionLabels[3]) {
+            sectionLabels[3].textContent = t.reviewsLabel;
+        }
 
-                    body: JSON.stringify({
+        if (sectionLabels[4]) {
+            sectionLabels[4].textContent = t.contactsLabel;
+        }
 
-                        chat_id: CHAT_ID,
+        setText('.about-info h2', t.aboutTitle, true);
+        setText('.about-text p:nth-child(1)', t.aboutP1, true);
+        setText('.about-text p:nth-child(2)', t.aboutP2);
+        setText('.about-text p:nth-child(3)', t.aboutP3);
+        setText('.about-text p:nth-child(4)', t.aboutP4);
+        setText('.founder-role', t.founderRole, true);
 
-                        text: message
+        document.querySelectorAll('.flip-container').forEach(
+            (card, index) => {
+                const cardTranslation = t.cards[index];
 
-                    })
+                if (!cardTranslation) return;
 
-                });
-
-
-            const result =
-                await response.json();
-
-
-            if (!result.ok) {
-
-                console.error(
-                    "Telegram error:",
-                    result
+                const frontTeacherLabel = card.querySelector(
+                    '.card-front .teachers-btn-label'
                 );
 
-                return false;
+                const backTeacherLabel = card.querySelector(
+                    '.card-back .teachers-btn-label'
+                );
+
+                const backHeading = card.querySelector(
+                    '.card-back .course-number'
+                );
+
+                const title = card.querySelector(
+                    '.card-front .course-title'
+                );
+
+                const description = card.querySelector(
+                    '.card-front .course-desc'
+                );
+
+                const teacherName = card.querySelector(
+                    '.card-back .teacher-info h4'
+                );
+
+                const teacherExperience = card.querySelector(
+                    '.card-back .teacher-info p'
+                );
+
+                if (frontTeacherLabel) {
+                    frontTeacherLabel.textContent = t.teachers;
+                }
+
+                if (backTeacherLabel) {
+                    backTeacherLabel.textContent = t.back;
+                }
+
+                if (backHeading) {
+                    backHeading.textContent = t.teachersHeading;
+                }
+
+                if (title) {
+                    title.textContent = cardTranslation.title;
+                }
+
+                if (description) {
+                    description.textContent =
+                        cardTranslation.description;
+                }
+
+                if (teacherName) {
+                    teacherName.textContent = cardTranslation.teacher;
+                }
+
+                if (teacherExperience) {
+                    teacherExperience.textContent =
+                        cardTranslation.experience;
+                }
             }
+        );
 
+        setText('.course-submit-btn', t.book);
 
-            return true;
+        const certificateHeaders = document.querySelectorAll(
+            '.cert-header-title'
+        );
 
-        } catch (error) {
-
-            console.error(
-                "Ошибка отправки в Telegram:",
-                error
-            );
-
-            return false;
+        if (certificateHeaders[0]) {
+            certificateHeaders[0].textContent = t.cert1;
         }
 
-    }
+        if (certificateHeaders[1]) {
+            certificateHeaders[1].textContent = t.cert2;
+        }
 
+        setText('.cert-main-title', t.certTitle, true);
 
-    /* =====================================================
-       BOOKING FORM
-    ===================================================== */
+        document.querySelectorAll('.cert-price-item > span').forEach(
+            (element, index) => {
+                /*
+                 * В каждой карточке повторяются 4 и 8 занятий,
+                 * поэтому используется остаток от деления.
+                 */
+                const lessonIndex = index % t.certLessons.length;
 
-    const bookingForm =
-        document.getElementById("bookingForm");
-
-
-    if (bookingForm) {
-
-        bookingForm.addEventListener(
-            "submit",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const branch =
-                    document.getElementById(
-                        "branchSelect"
-                    )?.value || "";
-
-
-                const contactMethod =
-                    document.getElementById(
-                        "contactMethodSelect"
-                    )?.value || "";
-
-
-                const name =
-                    document.getElementById(
-                        "userNameInput"
-                    )?.value || "";
-
-
-                const contact =
-                    document.getElementById(
-                        "userContactInput"
-                    )?.value || "";
-
-
-                const direction =
-                    document.getElementById(
-                        "directionSelect"
-                    )?.value || "";
-
-
-                const message =
-`🎵 НОВАЯ ЗАЯВКА KODI MUSIC CLASS
-
-Имя: ${name}
-
-Контакт: ${contact}
-
-Способ связи: ${contactMethod}
-
-Направление: ${direction}
-
-Филиал: ${branch}`;
-
-
-                const submitButton =
-                    document.getElementById(
-                        "submitBtn"
-                    );
-
-
-                if (submitButton) {
-
-                    submitButton.disabled = true;
-
-                    submitButton.textContent =
-                        "Отправка...";
-
-                }
-
-
-                const success =
-                    await sendToTelegram(message);
-
-
-                if (success) {
-
-                    alert(
-                        "Спасибо! Заявка отправлена. Мы свяжемся с вами."
-                    );
-
-
-                    bookingForm.reset();
-
-                    closeBookingModal();
-
-
-                } else {
-
-                    alert(
-                        "Не удалось отправить заявку. Попробуйте ещё раз."
-                    );
-
-                }
-
-
-                if (submitButton) {
-
-                    submitButton.disabled = false;
-
-                    /*
-                     * После отправки возвращаем
-                     * обычный текст кнопки.
-                     *
-                     * Язык кнопки устанавливается
-                     * встроенным скриптом HTML.
-                     */
-
-                    const language =
-                        document.documentElement.lang;
-
-                    submitButton.textContent =
-                        language === "en"
-                            ? "Send request"
-                            : "Отправить заявку";
-
-                }
-
+                element.textContent = t.certLessons[lessonIndex];
             }
         );
 
-    }
+        const reviewsTitle = document.getElementById('reviewsTitle');
 
+        if (reviewsTitle) {
+            reviewsTitle.textContent = t.reviewsTitle;
+        }
 
-    /* =====================================================
-       FOOTER CONTACT FORM
-    ===================================================== */
-
-    const footerForm =
-        document.getElementById(
-            "footerContactsForm"
-        );
-
-
-    if (footerForm) {
-
-        footerForm.addEventListener(
-            "submit",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const name =
-                    document.getElementById(
-                        "footerName"
-                    )?.value || "";
-
-
-                const phone =
-                    document.getElementById(
-                        "footerPhone"
-                    )?.value || "";
-
-
-                const method =
-                    document.getElementById(
-                        "footerMethod"
-                    )?.value || "";
-
-
-                const message =
-`📩 НОВАЯ ЗАЯВКА С САЙТА KODI
-
-Имя: ${name}
-
-Телефон: ${phone}
-
-Удобный способ связи: ${method}`;
-
-
-                const submitButton =
-                    document.getElementById(
-                        "footerSubmitBtn"
-                    );
-
-
-                if (submitButton) {
-
-                    submitButton.disabled = true;
-
-                    submitButton.textContent =
-                        "Отправка...";
-
+        document.querySelectorAll('.review-text').forEach(
+            (element, index) => {
+                if (t.reviews[index]) {
+                    element.textContent = t.reviews[index];
                 }
-
-
-                const success =
-                    await sendToTelegram(message);
-
-
-                if (success) {
-
-                    alert(
-                        "Спасибо! Заявка отправлена. Мы свяжемся с вами."
-                    );
-
-
-                    footerForm.reset();
-
-
-                } else {
-
-                    alert(
-                        "Не удалось отправить заявку. Попробуйте ещё раз."
-                    );
-
-                }
-
-
-                if (submitButton) {
-
-                    submitButton.disabled = false;
-
-                    const language =
-                        document.documentElement.lang;
-
-                    submitButton.textContent =
-                        language === "en"
-                            ? "Send request"
-                            : "Отправить заявку";
-
-                }
-
             }
         );
 
-    }
+        setText('.poster-by', t.posterBy);
 
+        const consentPrefix = document.querySelector('.consent-prefix');
 
-    /* =====================================================
-       PHONE INPUT
-    ===================================================== */
+        if (consentPrefix) {
+            consentPrefix.textContent = t.consentPrefix;
+        }
 
-    const phoneInput =
-        document.getElementById("footerPhone");
-
-
-    if (phoneInput) {
-
-        phoneInput.addEventListener(
-            "input",
-            function () {
-
-                let value =
-                    phoneInput.value.replace(
-                        /\D/g,
-                        ""
-                    );
-
-
-                if (value.startsWith("8")) {
-
-                    value =
-                        "7" + value.substring(1);
-
-                }
-
-
-                if (!value.startsWith("7")) {
-
-                    value =
-                        "7" + value;
-
-                }
-
-
-                value =
-                    value.substring(0, 11);
-
-
-                let formatted =
-                    "+7";
-
-
-                if (value.length > 1) {
-
-                    formatted +=
-                        " (" +
-                        value.substring(1, 4);
-
-                }
-
-
-                if (value.length >= 4) {
-
-                    formatted += ")";
-
-                }
-
-
-                if (value.length > 4) {
-
-                    formatted +=
-                        " " +
-                        value.substring(4, 7);
-
-                }
-
-
-                if (value.length > 7) {
-
-                    formatted +=
-                        "-" +
-                        value.substring(7, 9);
-
-                }
-
-
-                if (value.length > 9) {
-
-                    formatted +=
-                        "-" +
-                        value.substring(9, 11);
-
-                }
-
-
-                phoneInput.value =
-                    formatted;
-
-            }
+        const privacyLink = document.querySelector(
+            '.open-privacy-modal'
         );
 
-    }
+        if (privacyLink) {
+            privacyLink.textContent = t.privacy;
+        }
 
-
-    /* =====================================================
-       PREVENT BODY SCROLL WHEN MODAL OPEN
-    ===================================================== */
-
-    if (modalOverlay) {
-
-        const observer =
-            new MutationObserver(function () {
-
-                if (
-                    modalOverlay.classList.contains(
-                        "active"
-                    )
-                ) {
-
-                    document.body.style.overflow =
-                        "hidden";
-
-                } else {
-
-                    document.body.style.overflow =
-                        "";
-
-                }
-
-            });
-
-
-        observer.observe(
-            modalOverlay,
-            {
-                attributes: true,
-                attributeFilter: ["class"]
-            }
+        const footerLabel = document.querySelector(
+            '.field-label-small'
         );
 
+        if (footerLabel) {
+            footerLabel.textContent = t.methodLabel;
+        }
+
+        const footerName = document.getElementById('footerName');
+
+        if (footerName) {
+            footerName.placeholder = t.namePlaceholder;
+        }
+
+        const footerSubmit = document.getElementById(
+            'footerSubmitBtn'
+        );
+
+        if (footerSubmit) {
+            footerSubmit.textContent = t.send;
+        }
+
+        const modalTitle = document.querySelector(
+            '#modalOverlay .modal-title'
+        );
+
+        const modalSubtitle = document.querySelector(
+            '#modalOverlay .modal-subtitle'
+        );
+
+        if (modalTitle) {
+            modalTitle.textContent = t.modalTitle;
+        }
+
+        if (modalSubtitle) {
+            modalSubtitle.textContent = t.modalSubtitle;
+        }
+
+        const modalLabels = document.querySelectorAll(
+            '#bookingForm .form-label'
+        );
+
+        const formLabelTexts = [
+            t.branch,
+            t.contactHow,
+            t.yourName,
+            t.phoneNick,
+            t.direction
+        ];
+
+        modalLabels.forEach((label, index) => {
+            if (formLabelTexts[index]) {
+                label.textContent = formLabelTexts[index];
+            }
+        });
+
+        const modalSubmit = document.getElementById('submitBtn');
+
+        if (modalSubmit) {
+            modalSubmit.textContent = t.send;
+        }
+
+        const userName = document.getElementById('userNameInput');
+
+        if (userName) {
+            userName.placeholder =
+                language === 'ru' ? 'Иван' : 'John';
+        }
+
+        const userContact = document.getElementById(
+            'userContactInput'
+        );
+
+        if (userContact) {
+            userContact.placeholder =
+                language === 'ru'
+                    ? '+7 (999) 000-00-00 или @username'
+                    : '+7 (999) 000-00-00 or @username';
+        }
+
+        updateSelectOptions(
+            document.getElementById('branchSelect'),
+            t.branches
+        );
+
+        updateSelectOptions(
+            document.getElementById('contactMethodSelect'),
+            t.methods
+        );
+
+        updateSelectOptions(
+            document.getElementById('footerMethod'),
+            [
+                'Telegram',
+                'WhatsApp',
+                t.callback
+            ]
+        );
+
+        updateSelectOptions(directionSelect, t.directionOptions);
+
+        const addresses = document.querySelectorAll(
+            '.contact-address'
+        );
+
+        if (addresses[0]) {
+            addresses[0].textContent =
+                language === 'ru'
+                    ? 'г. Москва, Флотская ул., 7, корп. 1'
+                    : 'Moscow, Flotskaya St., 7, bldg. 1';
+        }
+
+        if (addresses[1]) {
+            addresses[1].textContent =
+                language === 'ru'
+                    ? 'г. Долгопрудный, ул. Новый бульвар, д. 22'
+                    : 'Dolgoprudny, Novy Boulevard, 22';
+        }
+
+        const legalElements = document.querySelectorAll(
+            '.contacts-legal span'
+        );
+
+        const legalTexts =
+            language === 'ru'
+                ? [
+                    'ИП Рыбин Василий Викторович',
+                    'ИНН: 504712859516',
+                    'ОГРНИП: 325508100451723',
+                    'Юр. адрес: г. Долгопрудный, ул. Новый бульвар, д. 22, этаж 1, кв. 1'
+                ]
+                : [
+                    'IE Vasilii Rybin',
+                    'TIN: 504712859516',
+                    'PSRNIP: 325508100451723',
+                    'Legal address: Dolgoprudny, Novy Boulevard, 22, floor 1, apt. 1'
+                ];
+
+        legalElements.forEach((element, index) => {
+            if (legalTexts[index]) {
+                element.textContent = legalTexts[index];
+            }
+        });
+
+        if (mobileMenuButton) {
+            const isOpen =
+                mainNav?.classList.contains('mobile-open');
+
+            mobileMenuButton.setAttribute(
+                'aria-label',
+                language === 'ru'
+                    ? isOpen
+                        ? 'Закрыть меню'
+                        : 'Открыть меню'
+                    : isOpen
+                        ? 'Close menu'
+                        : 'Open menu'
+            );
+        }
     }
 
+    languageSwitch?.addEventListener('click', () => {
+        applyLanguage(
+            currentLanguage === 'ru' ? 'en' : 'ru'
+        );
+    });
+
+    applyLanguage('ru');
+
+
+    /*
+     * =========================================================
+     * ФОРМЫ
+     * =========================================================
+     *
+     * Здесь предотвращается стандартная перезагрузка страницы.
+     * Отправку в Telegram/API можно подключить внутри обработчиков.
+     */
+
+    const bookingForm = document.getElementById('bookingForm');
+
+    bookingForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        if (!bookingForm.checkValidity()) {
+            bookingForm.reportValidity();
+            return;
+        }
+
+        /*
+         * Здесь можно вызвать fetch() для отправки данных.
+         */
+
+        closeBookingModal();
+        bookingForm.reset();
+    });
+
+    const footerContactsForm = document.getElementById(
+        'footerContactsForm'
+    );
+
+    footerContactsForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        if (!footerContactsForm.checkValidity()) {
+            footerContactsForm.reportValidity();
+            return;
+        }
+
+        /*
+         * Здесь можно вызвать fetch() для отправки данных.
+         */
+
+        footerContactsForm.reset();
+    });
 });

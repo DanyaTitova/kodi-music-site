@@ -1311,16 +1311,49 @@ select.form-control {
 }
 
 /* MOBILE KODI */
-.header-actions { display:flex; align-items:center; gap:10px; }
-.mobile-menu-button {
-    display:none; width:44px; height:44px; padding:0; border:1px solid rgba(255,255,255,.14);
-    border-radius:50%; background:rgba(10,10,12,.72); align-items:center; justify-content:center;
-    flex-direction:column; gap:5px; cursor:pointer; backdrop-filter:blur(12px);
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-.mobile-menu-button span { display:block; width:16px; height:1.5px; background:#fff; transition:.25s ease; }
-.mobile-menu-button.active span:first-child { transform:translateY(3.25px) rotate(45deg); }
-.mobile-menu-button.active span:last-child { transform:translateY(-3.25px) rotate(-45deg); }
 
+.mobile-menu-button {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    background: rgba(10, 10, 12, 0.9);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 1002;
+}
+
+.mobile-menu-button span {
+    display: block;
+    width: 17px;
+    height: 2px;
+    border-radius: 2px;
+    background: #ffffff;
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.mobile-menu-button.active span:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+}
+
+.mobile-menu-button.active span:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+}
 @media (max-width:900px) {
     .header { padding:14px 18px; min-height:70px; }
     .logo-img { height:34px; max-width:110px; }
@@ -1452,4 +1485,368 @@ select.form-control {
 
 @media (prefers-reduced-motion:reduce) {
     *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+.flip-container {
+    min-height: 420px;
+    height: 420px;
+    perspective: 1400px;
+    -webkit-perspective: 1400px;
+}
+
+.flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.flip-container.flipped .flip-card {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 36px 30px;
+
+    opacity: 1;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+}
+
+.card-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    z-index: 1;
+    transform: rotateY(180deg);
+
+    /* Полностью непрозрачная обратная сторона */
+    background: #141518;
+    background-color: #141518;
+    opacity: 1;
+
+    border-color: rgba(217, 83, 40, 0.45);
+}
+
+.flip-container.flipped .card-front {
+    pointer-events: none;
+}
+
+.flip-container:not(.flipped) .card-back {
+    pointer-events: none;
+}
+
+.flip-toggle {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.flip-arrow-btn {
+    touch-action: manipulation;
+}
+
+.teacher-info h4 {
+    color: #ffffff;
+    opacity: 1;
+}
+
+.teacher-info p {
+    color: #a3a3ad;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   ИСПРАВЛЕНИЯ МОДАЛЬНЫХ ОКОН
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    overflow-y: auto;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-card {
+    position: relative;
+
+    width: min(100%, 460px);
+    max-height: calc(100dvh - 40px);
+    margin: auto;
+
+    padding: 40px 32px;
+    overflow-y: auto;
+
+    background: #121316;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+
+    transform: translateY(18px) scale(0.98);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.modal-card select {
+    display: block;
+    width: 100%;
+    color-scheme: dark;
+}
+
+.modal-card select option,
+.form-control option {
+    color: #ffffff;
+    background: #1a1b20;
+}
+
+.form-control {
+    min-height: 48px;
+}
+
+select.form-control {
+    appearance: auto;
+    -webkit-appearance: menulist;
+    background-image: none;
+    padding-right: 16px;
+    cursor: pointer;
+}
+
+
+/* Не позволяем фону прокручиваться под модальным окном */
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   МОБИЛЬНАЯ ВЕРСИЯ
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .header {
+        padding: 14px 18px;
+        min-height: 70px;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+    .nav {
+        position: fixed;
+        top: 78px;
+        left: 12px;
+        right: 12px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        max-height: calc(100dvh - 92px);
+        padding: 8px;
+        overflow-y: auto;
+
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+
+        background: rgba(12, 12, 14, 0.98);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-12px);
+
+        z-index: 1001;
+
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0.25s ease;
+    }
+
+    .nav.mobile-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .nav a {
+        display: block;
+        width: 100%;
+        padding: 15px 16px;
+        border-radius: 13px;
+        color: #ffffff;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    .flip-container {
+        min-height: 390px;
+        height: 390px;
+    }
+
+    .card-front,
+    .card-back {
+        padding: 24px 20px;
+        border-radius: 20px;
+    }
+
+    /*
+       Модальное окно всегда располагается по центру.
+       margin:auto дополнительно удерживает его по центру,
+       если содержимое становится выше доступной области.
+    */
+    .modal-overlay {
+        align-items: center;
+        justify-content: center;
+        padding:
+            max(12px, env(safe-area-inset-top))
+            12px
+            max(12px, env(safe-area-inset-bottom));
+    }
+
+    .modal-card {
+        width: min(100%, 460px);
+        max-height: calc(
+            100dvh -
+            max(24px, env(safe-area-inset-top)) -
+            max(24px, env(safe-area-inset-bottom))
+        );
+
+        margin: auto;
+        padding: 30px 18px 22px;
+        border-radius: 22px;
+
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .privacy-modal-card {
+        max-height: calc(
+            100dvh -
+            max(24px, env(safe-area-inset-top)) -
+            max(24px, env(safe-area-inset-bottom))
+        );
+    }
+}
+
+@media (max-width: 420px) {
+    .flip-container {
+        min-height: 370px;
+        height: 370px;
+    }
+
+    .modal-overlay {
+        padding:
+            max(10px, env(safe-area-inset-top))
+            10px
+            max(10px, env(safe-area-inset-bottom));
+    }
+
+    .modal-card {
+        max-height: calc(100dvh - 20px);
+        padding: 28px 16px 20px;
+    }
+}
+/* Удаляем старое переопределение и задаем единый стиль для инпутов и селектов */
+.modal-card .form-control {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 18px;
+    background-color: #1a1b20;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: var(--text-white);
+    font-family: var(--font-montserrat);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+/* Полный сброс нативных стилей <select> */
+.modal-card select.form-control {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    
+    padding-right: 40px;
+    cursor: pointer;
+    
+    /* Добавляем единую аккуратную стрелку вместо системных двойных */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%25237E7E8C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+/* Эффект при фокусе */
+.modal-card .form-control:focus {
+    border-color: rgba(255, 255, 255, 0.35);
+    background-color: #202228;
+}
+
+/* Стиль раскрывающегося списка выпадашки */
+.modal-card select.form-control option {
+    background-color: #141518;
+    color: #ffffff;
 }
