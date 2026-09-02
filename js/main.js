@@ -897,14 +897,14 @@ function initMap() {
      * =========================================================
      */
 
-    const TELEGRAM_BOT_TOKEN = 'ВСТАВЬ_СЮДА_ТОКЕН_БОТА'; 
+    const TELEGRAM_BOT_TOKEN = '8606342818:AAFmFMZX_Am6kfnw39mjS7dJKSsDU_0rZ2g'; 
 
     // ID по умолчанию (например, для формы в футере или если филиал не выбран)
-    const DEFAULT_CHAT_ID = '22222'; 
+    const DEFAULT_CHAT_ID = '8403863164'; 
 
     // ID для разных филиалов
-    const CHAT_ID_DOLGOPRUDNY = '111111';
-    const CHAT_ID_FLOTSKAYA = '22222';
+    const CHAT_ID_DOLGOPRUDNY = '5025669951';
+    const CHAT_ID_FLOTSKAYA = '8403863164';
 
     // Функция отправки сообщений (принимает текст и конкретный chatId)
     async function sendToTelegram(messageText, chatId = DEFAULT_CHAT_ID) {
