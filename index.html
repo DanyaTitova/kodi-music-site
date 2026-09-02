@@ -84,7 +84,7 @@
                         <p><strong>KODI</strong> в переводе с финского «ДОМ». И это не случайно: мы создали пространство, где не страшно ошибаться, а обучение приносит удовольствие и быстрые результаты.</p>
                         <p>Руководитель студии—Василий Рыбин, известный музыкант и режиссёр. Музыка появилась в его жизни в 3 года — всё началось с барабанов, именно эта искренняя любовь к инструменту легла в основу его подхода.</p>
                         <p>В KODI мы помогаем раскрыть вкус и стиль: не учим «как правильно», а учим «как твоё».</p>
-                        
+                        <p>Добро пожаловать домой, в KODI!</p>
                     </div>
                 </div>
 
@@ -642,9 +642,10 @@
                 scroll: 'SCROLL ↓',
                 aboutLabel: '01 / О СТУДИИ',
                 aboutTitle: 'МУЗЫКА<br><span>- твой дом.</span>',
-                aboutP1: '<strong>KODI</strong> — в переводе с финского «ДОМ». И это не случайно: мы создали пространство, где каждый чувствует себя комфортно, а обучение приносит радость и быстрые результаты.',
-                aboutP2: 'Руководитель студии — Василий Рыбин, известный музыкант и режиссёр. В KODI мы учим не просто академическим нотам, а настоящей музыке и самовыражению.',
-                aboutP3: 'Добро пожаловать домой, в KODI!',
+                aboutP1: '<strong>KODI</strong> — в переводе с финского «ДОМ». И это не случайно: мы создали пространство, где не страшно ошибаться, а обучение приносит удовольствие и быстрые результаты.',
+                aboutP2: 'Руководитель студии—Василий Рыбин, известный музыкант и режиссёр. Музыка появилась в его жизни в 3 года — всё началось с барабанов, именно эта искренняя любовь к инструменту легла в основу его подхода.',
+                aboutP3: 'В KODI мы помогаем раскрыть вкус и стиль: не учим «как правильно», а учим «как твоё»',
+                aboutP4: 'Добро пожаловать домой, в KODI!»',
                 founderRole: 'Основатель &amp; Руководитель KODI',
                 directionsLabel: '02 / НАПРАВЛЕНИЯ',
                 teachers: 'Педагоги', back: 'Назад', book: 'Записаться',
@@ -681,9 +682,10 @@
                 scroll: 'SCROLL ↓',
                 aboutLabel: '01 / ABOUT',
                 aboutTitle: 'MUSIC<br><span>- feels like home.</span>',
-                aboutP1: '<strong>KODI</strong> means “HOME” in Finnish. It is no coincidence: we created a space where everyone feels comfortable and learning brings joy and fast results.',
-                aboutP2: 'The studio is led by Vasilii Rybin, a musician and director. At KODI we teach not just academic notes, but real music and self-expression.',
-                aboutP3: 'Welcome home, to KODI!',
+                aboutP1: '<strong>KODI</strong> means “HOME” in Finnish. It is no coincidence: we created a space where everyone feels comfortable making mistakes, and learning brings joy and fast results.',
+                aboutP2: 'The studio is led by Vasilii Rybin, a famous musician and director. Music entered his life at age 3 — it all started with drums, and this sincere love for the instrument became the foundation of his approach.',
+                aboutP3: 'At KODI, we help discover taste and style: we do not teach "what is right", we teach "what is yours".',
+                aboutP4: 'Welcome home, to KODI!',
                 founderRole: 'Founder &amp; Head of KODI',
                 directionsLabel: '02 / DIRECTIONS',
                 teachers: 'Teachers', back: 'Back', book: 'Book now',
@@ -741,8 +743,9 @@
             if (labels[4]) labels[4].textContent = t.contactsLabel;
             setText('.about-info h2', t.aboutTitle, true);
             setText('.about-text p:nth-child(1)', t.aboutP1, true);
-            setText('.about-text p:nth-child(2)', t.aboutP2, true);
+            setText('.about-text p:nth-child(2)', t.aboutP2);
             setText('.about-text p:nth-child(3)', t.aboutP3);
+            setText('.about-text p:nth-child(4)', t.aboutP4);
             setText('.founder-role', t.founderRole, true);
             setText('.teachers-btn-label', t.teachers);
             setText('.course-submit-btn', t.book);
