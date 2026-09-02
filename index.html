@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KODI MUSIC CLASS — Музыкальная школа в Москве и Долгопрудном</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="#home" class="logo"><img src="images/logo.png" alt="KODI" class="logo-img"></a>
+        <nav class="nav" id="mainNav">
+            <a href="#about">О СТУДИИ</a>
+            <a href="#directions">НАПРАВЛЕНИЯ</a>
+            <a href="#certificates">СЕРТИФИКАТЫ</a>
+            <a href="#reviews">ОТЗЫВЫ</a>
+            <a href="#contacts">КОНТАКТЫ</a>
+        </nav>
+        <div class="header-actions">
+            <button class="language-switch" id="languageSwitch" type="button">EN</button>
+            <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Открыть меню" aria-expanded="false">
+                <span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-top">MUSIC / PEOPLE / HOME</div>
+
+            <div class="hero-content">
+                <div class="hero-title">
+                    <h1>KODI<span>MUSIC CLASS</span></h1>
+                </div>
+
+                <p class="hero-subtitle">Музыкальная школа в Москве и Долгопрудном</p>
+
+                <div class="hero-meta-row">
+                    <div>
+                        <div class="signature">by Vasilii Rybin</div>
+                        <button class="hero-booking-button open-modal-btn">Записаться на урок</button>
+                    </div>
+                    
+                    <div class="btn-round-wrapper open-modal-btn">
+                        <div class="btn-round-text">
+                            <svg viewBox="0 0 100 100">
+                                <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"/>
+                                <text>
+                                    <textPath href="#textPath" startOffset="0%">
+                                        • ПЕРВЫЙ УРОК БЕСПЛАТНО •
+                                    </textPath>
+                                </text>
+                            </svg>
+                        </div>
+                        <div class="btn-round-circle">
+                            <svg viewBox="0 0 24 24">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-bottom">
+                <span>МОСКВА / ДОЛГОПРУДНЫЙ</span>
+                <span>SCROLL ↓</span>
+                <span>© KODI 2026</span>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ О СТУДИИ -->
+        <section class="about" id="about">
+            <span class="section-label">01 / О СТУДИИ</span>
+            <div class="about-grid">
+                <div class="about-info">
+                    <h2>МУЗЫКА<br><span>- твой дом.</span></h2>
+                    <div class="about-text">
+                        <p><strong>KODI</strong> — в переводе с финского «ДОМ». И это не случайно: мы создали пространство, где каждый чувствует себя комфортно, а обучение приносит радость и быстрые результаты.</p>
+                        <p>Руководитель студии — Василий Рыбин, известный музыкант и режиссёр. В KODI мы учим не просто академическим нотам, а настоящей музыке и самовыражению.</p>
+                        <p>Добро пожаловать домой, в KODI!</p>
+                    </div>
+                </div>
+
+                <div class="founder-card">
+                    <div class="founder-img-wrapper">
+                        <img src="images/vasya.png" alt="Василий Рыбин" class="founder-img">
+                        <div class="founder-overlay">
+                            <span class="founder-name">Василий Рыбин</span>
+                            <span class="founder-role">Основатель &amp; Руководитель KODI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ НАПРАВЛЕНИЯ -->
+        <section class="directions" id="directions">
+            <span class="section-label">02 / НАПРАВЛЕНИЯ</span>
+            <div class="directions-grid">
+                <!-- Вокал -->
+                <div class="flip-container">
+                    <div class="flip-card">
+                        <div class="card-front card-front-vocal">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <span class="course-number">01</span>
+                                        <div class="card-top-right flip-toggle">
+                                            <span class="teachers-btn-label">Педагоги</span>
+                                            <button class="flip-arrow-btn" title="Педагоги">
+                                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h3 class="course-title">Вокал</h3>
+                                    <p class="course-desc">Раскрывает эмоциональную выразительность и артистизм.</p>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Вокал">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <div class="card-top-right flip-toggle">
+                                            <button class="flip-arrow-btn" title="Назад">
+                                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                            </button>
+                                            <span class="teachers-btn-label">Назад</span>
+                                        </div>
+                                        <span class="course-number">ПЕДАГОГИ</span>
+                                    </div>
+                                    <div class="teachers-list">
+                                        <div class="teacher-item">
+                                            <div class="teacher-avatar"></div>
+                                            <div class="teacher-info">
+                                                <h4>Преподаватель Вокала</h4>
+                                                <p>Стаж 8+ лет / Опыт сцены</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Вокал">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Гитара / Укулеле -->
+                <div class="flip-container">
+                    <div class="flip-card">
+                        <div class="card-front card-front-guitar">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <span class="course-number">02</span>
+                                        <div class="card-top-right flip-toggle">
+                                            <span class="teachers-btn-label">Педагоги</span>
+                                            <button class="flip-arrow-btn" title="Педагоги">
+                                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h3 class="course-title">Гитара (Электро/Акустика)</h3>
+                                    <p class="course-desc">Тренирует мелкую моторику и понимание гармонии.</p>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Гитара / Укулеле">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <div class="card-top-right flip-toggle">
+                                            <button class="flip-arrow-btn" title="Назад">
+                                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                            </button>
+                                            <span class="teachers-btn-label">Назад</span>
+                                        </div>
+                                        <span class="course-number">ПЕДАГОГИ</span>
+                                    </div>
+                                    <div class="teachers-list">
+                                        <div class="teacher-item">
+                                            <div class="teacher-avatar"></div>
+                                            <div class="teacher-info">
+                                                <h4>Преподаватель Гитары</h4>
+                                                <p>Концертный музыкант</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Гитара / Укулеле">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Фортепиано -->
+                <div class="flip-container">
+                    <div class="flip-card">
+                        <div class="card-front card-front-piano">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <span class="course-number">03</span>
+                                        <div class="card-top-right flip-toggle">
+                                            <span class="teachers-btn-label">Педагоги</span>
+                                            <button class="flip-arrow-btn" title="Педагоги">
+                                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h3 class="course-title">Фортепиано</h3>
+                                    <p class="course-desc">Совершенствует музыкальный слух и синхронную работу обеих рук.</p>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Фортепиано">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <div class="card-top-right flip-toggle">
+                                            <button class="flip-arrow-btn" title="Назад">
+                                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                            </button>
+                                            <span class="teachers-btn-label">Назад</span>
+                                        </div>
+                                        <span class="course-number">ПЕДАГОГИ</span>
+                                    </div>
+                                    <div class="teachers-list">
+                                        <div class="teacher-item">
+                                            <div class="teacher-avatar"></div>
+                                            <div class="teacher-info">
+                                                <h4>Преподаватель Фортепиано</h4>
+                                                <p>Лауреат конкурсов</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Фортепиано">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Барабаны -->
+                <div class="flip-container">
+                    <div class="flip-card">
+                        <div class="card-front card-front-drums">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <span class="course-number">04</span>
+                                        <div class="card-top-right flip-toggle">
+                                            <span class="teachers-btn-label">Педагоги</span>
+                                            <button class="flip-arrow-btn" title="Педагоги">
+                                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h3 class="course-title">Ударные</h3>
+                                    <p class="course-desc">Развивают чувство ритма и координацию движений.</p>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Барабаны">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div>
+                                    <div class="card-top">
+                                        <div class="card-top-right flip-toggle">
+                                            <button class="flip-arrow-btn" title="Назад">
+                                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                            </button>
+                                            <span class="teachers-btn-label">Назад</span>
+                                        </div>
+                                        <span class="course-number">ПЕДАГОГИ</span>
+                                    </div>
+                                    <div class="teachers-list">
+                                        <div class="teacher-item">
+                                            <div class="teacher-avatar"></div>
+                                            <div class="teacher-info">
+                                                <h4>Преподаватель Барабанов</h4>
+                                                <p>Сессионный барабанщик</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course-action">
+                                    <button class="course-submit-btn open-modal-btn" data-direction="Барабаны">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ СЕРТИФИКАТЫ -->
+        <section class="certificates" id="certificates">
+            <span class="section-label">03 / СЕРТИФИКАТЫ</span>
+            <div class="certificates-container">
+                <!-- Долгопрудный -->
+                <div class="cert-card-ref">
+                    <div class="cert-text-col">
+                        <div class="cert-header-line">
+                            <span class="cert-header-title">ДОЛГОПРУДНЫЙ</span>
+                            <div class="cert-header-divider"></div>
+                        </div>
+                        <h3 class="cert-main-title">ПОДАРОЧНЫЙ<br>СЕРТИФИКАТ</h3>
+                        <div class="cert-prices-grid">
+                            <div class="cert-price-item">
+                                <span style="font-size: 20px; font-weight: bold;">4 занятия</span>
+                                <div class="cert-price-value-ref">8 800 ₽</div>
+                            </div>
+                            <div class="cert-price-item">
+                                <span style="font-size: 20px; font-weight: bold;">8 занятий</span>  
+                                <div class="cert-price-value-ref">15 200 ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cert-logo-col">
+                        <div class="cert-logo-circle">
+                            <img src="images/logo.png" alt="KODI MUSIC CLASS">
+                        </div>
+                    </div>
+                    <div class="cert-author-footer">VASILII RYBIN</div>
+                </div>
+
+                <!-- Москва / Флотская -->
+                <div class="cert-card-ref reverse">
+                    <div class="cert-text-col">
+                        <div class="cert-header-line">
+                            <span class="cert-header-title">МОСКВА (ФЛОТСКАЯ)</span>
+                            <div class="cert-header-divider"></div>
+                        </div>
+                        <h3 class="cert-main-title">ПОДАРОЧНЫЙ<br>СЕРТИФИКАТ</h3>
+                        <div class="cert-prices-grid">
+                            <div class="cert-price-item">
+                                <span style="font-size: 20px; font-weight: bold;">4 занятия</span>
+                                <div class="cert-price-value-ref">12 400 ₽</div>
+                            </div>
+                            <div class="cert-price-item">
+                                <span style="font-size: 20px; font-weight: bold;">8 занятий</span>  
+                                <div class="cert-price-value-ref">22 400 ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cert-logo-col">
+                        <div class="cert-logo-circle">
+                            <img src="images/logo.png" alt="KODI MUSIC CLASS">
+                        </div>
+                    </div>
+                    <div class="cert-author-footer">VASILII RYBIN</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ ОТЗЫВЫ -->
+        <section class="reviews-section" id="reviews">
+            <span class="section-label">04 / ОТЗЫВЫ</span>
+            <div class="reviews-header">
+                <h2 id="reviewsTitle">ОТЗЫВЫ УЧЕНИКОВ</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div>
+                        <div class="review-stars">★ ★ ★ ★ ★</div>
+                        <p class="review-text">«Хорошая музыкальная школа с классным обучением! Преподаватели внимательные и профессиональные, занятия проходят интересно и вдохновляюще. Результаты заметны быстро, рекомендую для всех, кто хочет научиться музыке.»</p>
+                    </div>
+                    <div class="review-author">
+                        <div class="review-avatar">С</div>
+                        <div class="review-author-info">
+                            <h4>Сергей</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                        <div class="review-stars">★ ★ ★ ★ ★</div>
+                        <p class="review-text">«Хорошая школа. Современный ремонт, приятно находиться внутри. Очень творческая атмосфера, современное оборудование. Хожу на вокал к Илье Мичурину. Очень нравится подход педагога, объясняет все очень понятно. С первых занятий уже был небольшой результат и прогресс»</p>
+                    </div>
+                    <div class="review-author">
+                        <div class="review-avatar">Л</div>
+                        <div class="review-author-info">
+                            <h4>Леся</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                        <div class="review-stars">★ ★ ★ ★ ★</div>
+                        <p class="review-text">«Я очень довольна уроками , которые я получаю в музыкальной школе Kodi. Преподаватель по барабанам - Константин профессионально подходит к обучению и создаёт теплую и поддерживающую атмосферу. Особенно хочу отметить качество обучения игре на барабанах — занятия интересные, информативные и эффективные. Благодаря музыкальной школе Kodi я значительно улучшила свои навыки и стала более уверенно играть на этом инструменте. Очень рекомендую эту школу всем, кто хочет развивать свой музыкальный талант!😍❤️»</p>
+                    </div>
+                    <div class="review-author">
+                        <div class="review-avatar">И</div>
+                        <div class="review-author-info">
+                            <h4>Ирина Г.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ ПОСТЕР -->
+        <section class="poster-banner" id="poster">
+            <div class="poster-top-tag">MUSIC / PEOPLE / HOME</div>
+            <div class="poster-center-content">
+                <div class="poster-watermark">KODI</div>
+                <h2 class="poster-title">MUSIC</h2>
+                <span class="poster-script">feels</span>
+                <h2 class="poster-title">LIKE HOME.</h2>
+                <span class="poster-by">by Vasilii Rybin</span>
+                <div class="poster-divider"></div>
+            </div>
+            <div class="hero-bottom" style="width: 100%; color: #000000; border-top-color: rgba(0,0,0,0.15);">
+                <span>МОСКВА / ДОЛГОПРУДНЫЙ</span>
+                <span>© KODI 2026</span>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ КОНТАКТЫ -->
+        <section class="contacts-section" id="contacts">
+            <span class="section-label" style="padding-left: 6%;">05 / КОНТАКТЫ</span>
+            
+            <div class="map-container" id="yandexMap"></div>
+
+            <div class="contacts-container">
+                <div class="contacts-info">
+                    <div class="contacts-block">
+                        <div class="phone-item">
+                            <a href="tel:+79958842400" class="phone-number">+7 (985) 366-65-03</a>
+                        </div>
+                        <div class="phone-item">
+                            <a href="tel:+79958842400" class="phone-number">+7 (999) 854-65-17</a>
+                        </div>
+                    </div>
+
+                    <a href="mailto:info@kodimusic.ru" class="contact-item-main">vk.ru/kodi_mus_class_dol</a>
+
+                    <div class="contacts-address-group">
+                        <div class="contact-address">г. Москва, Флотская ул., 7, корп. 1</div>
+                        <div class="contact-address">г. Долгопрудный, ул. Новый бульвар, д. 22</div>
+                    </div>
+
+                    <div class="contacts-legal">
+                        <span>ИП Рыбин Василий Викторович</span>
+                        <span>ИНН: 504712859516</span>
+                        <span>ОГРНИП: 325508100451723</span>
+                        <span>Юр. адрес: г. Долгопрудный, ул. Новый бульвар, д. 22, этаж 1, кв. 1</span>
+                    </div>
+                </div>
+
+                <form class="contacts-form" id="footerContactsForm">
+                    <input type="text" class="input-styled" id="footerName" placeholder="Ваше Имя" required>
+                    <input type="tel" class="input-styled" id="footerPhone" placeholder="+7 (999) 000-00-00" required>
+
+                    <span class="field-label-small">Удобный способ связи</span>
+                    <select class="input-styled select-styled" id="footerMethod">
+                        <option value="Telegram">Telegram</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Звонок">Обратный звонок</option>
+                    </select>
+
+                    <label class="checkbox-container">
+                        <input type="checkbox" required>
+                        <span><span class="consent-prefix">Я ознакомлен(а) с</span> <a href="#privacyModal" class="open-privacy-modal">Политикой обработки персональных данных</a></span>
+                    </label>
+
+                    <button type="submit" class="contact-submit-btn" id="footerSubmitBtn">Отправить заявку</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ВСПЛЫВАЮЩЕЕ ОКНО -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 class="modal-title">БЕСПЛАТНЫЙ УРОК</h3>
+            <p class="modal-subtitle">Заполните форму и выберите удобный способ связи.</p>
+
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label class="form-label">Филиал</label>
+                    <select class="form-control" id="branchSelect">
+                        <option>г. Долгопрудный, ул. Новый бульвар, д. 22</option>
+                        <option>г. Москва, Флотская ул., 7, корп. 1</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Как с вами связаться?</label>
+                    <select class="form-control" id="contactMethodSelect">
+                        <option>Обратный звонок</option>
+                        <option>Telegram</option>
+                        <option>WhatsApp</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ваше имя</label>
+                    <input type="text" class="form-control" id="userNameInput" placeholder="Иван" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Номер телефона / никнейм</label>
+                    <input type="text" class="form-control" id="userContactInput" placeholder="+7 (999) 000-00-00 или @username" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Направление</label>
+                    <select class="form-control" id="directionSelect">
+                        <option value="Вокал">Вокал</option>
+                        <option value="Гитара (Электро/Акустика)">Гитара (Электро/Акустика)</option>
+                        <option value="Фортепиано">Фортепиано</option>
+                        <option value="Барабаны">Барабаны</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="modal-submit" id="submitBtn">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПОЛИТИКИ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ -->
+    <div class="modal-overlay privacy-modal-overlay" id="privacyModal">
+        <div class="modal-card privacy-modal-card">
+            <button class="modal-close privacy-modal-close" type="button">&times;</button>
+            <h3 class="modal-title">Политика в отношении обработки персональных данных</h3>
+            <div class="privacy-modal-body">
+                <p><strong>1. Общие положения</strong> Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые <strong>ИП Рыбиным Василием Викторовичем</strong> (ИНН 504712859516, ОГРНИП 325508100451723) (далее — Оператор).</p>
+                <p>1.1. Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни, личную и семейную тайну.</p>
+                <p>1.2. Настоящая политика Оператора в отношении обработки персональных данных (далее — Политика) применяется ко всей информации, которую Оператор может получить о посетителях веб-сайта <a href="https://kodi_music_class.ru" target="_blank" rel="noopener"><strong>https://kodi_music_class.ru</strong></a>.</p>
+
+                <h4>2. Основные понятия</h4>
+                <p>2.1. Веб-сайт — совокупность графических и информационных материалов, а также программ для ЭВМ и баз данных, обеспечивающих их доступность в сети интернет по сетевому адресу <a href="https://kodi_music_class.ru" target="_blank" rel="noopener"><strong>https://kodi_music_class.ru</strong></a>.</p>
+                <p>2.2. Пользователь — любой посетитель веб-сайта <a href="https://kodi_music_class.ru" target="_blank" rel="noopener"><strong>https://kodi_music_class.ru</strong></a>.</p>
+                <p>2.3. Персональные данные — любая информация, относящаяся прямо или косвенно к определенному или определяемому Пользователю веб-сайта.</p>
+                <p>2.4. Обработка персональных данных — любое действие (операция) или совокупность действий, совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными (сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, передача, удаление, уничтожение).</p>
+
+                <h4>3. Основные права и обязанности Оператора и Пользователей</h4>
+                <p>3.1. Оператор имеет право получать от субъекта персональных данных достоверные данные, необходимые для записи на бесплатный урок.</p>
+                <p>3.2. Оператор обязан обрабатывать персональные данные в соответствии с законодательством РФ, принимать необходимые правовые, организационные и технические меры для защиты данных от неправомерного доступа.</p>
+                <p>3.3. Пользователь имеет право на получение информации, касающейся обработки его персональных данных, а также на их актуализацию или отзыв согласия.</p>
+                <p>3.4. Пользователь обязан предоставлять Оператору достоверные сведения о себе.</p>
+
+                <h4>4. Принципы обработки персональных данных</h4>
+                <p>4.1. Обработка персональных данных осуществляется на законной и справедливой основе.</p>
+                <p>4.2. Обработка ограничивается достижением конкретных, заранее определенных и законных целей.</p>
+                <p>4.3. Содержание и объем обрабатываемых персональных данных соответствуют заявленным целям обработки (не допускается избыточность данных).</p>
+
+                <h4>5. Цели обработки персональных данных</h4>
+                <p><strong>Цель обработки:</strong> Запись Пользователя на пробный (бесплатный) урок, организация обратной связи и консультирование по услугам.</p>
+                <p><strong>Персональные данные:</strong> Имя, номер телефона, имя пользователя/никнейм в мессенджере (Telegram).</p>
+                <p><strong>Правовые основания:</strong> Закон РФ № 152-ФЗ «О персональных данных», согласие Пользователя, выраженное путем заполнения и отправки формы на сайте.</p>
+                <p><strong>Виды обработки:</strong> Сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), использование, удаление, уничтожение.</p>
+
+                <h4>6. Порядок сбора, хранения и передачи персональных данных</h4>
+                <p>6.1. Безопасность персональных данных обеспечивается путем реализации правовых, организационных и технических мер, необходимых для выполнения требований законодательства.</p>
+                <p>6.2. Для приема и обработки заявок Оператор использует сторонние сервисы, включая Telegram-бота (передача информации менеджеру для связи с Пользователем).</p>
+                <p>6.3. Персональные данные Пользователя никогда и ни при каких условиях не будут переданы третьим лицам, за исключением случаев, связанных с исполнением действующего законодательства.</p>
+                <p>6.4. Срок обработки персональных данных определяется достижением целей, для которых они были собраны. Пользователь может в любой момент отозвать свое согласие на обработку персональных данных, направив обращение в личные сообщения официальной группы ВКонтакте: <strong>vk.ru/kodi_mus_class_dol</strong> с пометкой «Отзыв согласия на обработку персональных данных».</p>
+
+                <h4>7. Заключительные положения</h4>
+                <p>7.1. Пользователь может получить любые разъяснения по вопросам обработки его персональных данных, обратившись к Оператору через официальное сообщество ВКонтакте: <strong>vk.ru/kodi_mus_class_dol</strong>.</p>
+                <p>7.2. В данном документе отражаются любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.</p>
+                <p>7.3. Актуальная версия Политики в свободном доступе расположена в сети Интернет по адресу <a href="https://kodi_music_class.ru/privacy/" target="_blank" rel="noopener"><strong>https://kodi_music_class.ru/privacy/</strong></a> (или в футере сайта).</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Дополнительная логика: политика и единое переключение языка для всего сайта.
+    (function () {
+        const privacyModal = document.getElementById('privacyModal');
+        const languageSwitch = document.getElementById('languageSwitch');
+        let currentLanguage = 'ru';
+
+        function openPrivacy() {
+            if (!privacyModal) return;
+            privacyModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrivacy() {
+            if (!privacyModal) return;
+            privacyModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.open-privacy-modal').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                openPrivacy();
+            });
+        });
+
+        const privacyClose = document.querySelector('.privacy-modal-close');
+        if (privacyClose) privacyClose.addEventListener('click', closePrivacy);
+        if (privacyModal) {
+            privacyModal.addEventListener('click', function (event) {
+                if (event.target === privacyModal) closePrivacy();
+            });
+        }
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') closePrivacy();
+        });
+
+        const translations = {
+            ru: {
+                nav: ['О СТУДИИ', 'НАПРАВЛЕНИЯ', 'СЕРТИФИКАТЫ', 'ОТЗЫВЫ', 'КОНТАКТЫ'],
+                heroTop: 'MUSIC / PEOPLE / HOME',
+                heroSubtitle: 'Музыкальная школа в Москве и Долгопрудном',
+                heroButton: 'Записаться на урок',
+                freeLesson: '• ПЕРВЫЙ УРОК БЕСПЛАТНО •',
+                location: 'МОСКВА / ДОЛГОПРУДНЫЙ',
+                scroll: 'SCROLL ↓',
+                aboutLabel: '01 / О СТУДИИ',
+                aboutTitle: 'МУЗЫКА<br><span>- твой дом.</span>',
+                aboutP1: '<strong>KODI</strong> — в переводе с финского «ДОМ». И это не случайно: мы создали пространство, где каждый чувствует себя комфортно, а обучение приносит радость и быстрые результаты.',
+                aboutP2: 'Руководитель студии — Василий Рыбин, известный музыкант и режиссёр. В KODI мы учим не просто академическим нотам, а настоящей музыке и самовыражению.',
+                aboutP3: 'Добро пожаловать домой, в KODI!',
+                founderRole: 'Основатель &amp; Руководитель KODI',
+                directionsLabel: '02 / НАПРАВЛЕНИЯ',
+                teachers: 'Педагоги', back: 'Назад', book: 'Записаться',
+                cards: [
+                    ['Вокал', 'Раскрывает эмоциональную выразительность и артистизм.', 'Преподаватель Вокала', 'Стаж 8+ лет / Опыт сцены'],
+                    ['Гитара (Электро/Акустика)', 'Тренирует мелкую моторику и понимание гармонии.', 'Преподаватель Гитары', 'Концертный музыкант'],
+                    ['Фортепиано', 'Совершенствует музыкальный слух и синхронную работу обеих рук.', 'Преподаватель Фортепиано', 'Лауреат конкурсов'],
+                    ['Ударные', 'Развивают чувство ритма и координацию движений.', 'Преподаватель Барабанов', 'Сессионный барабанщик']
+                ],
+                certificatesLabel: '03 / СЕРТИФИКАТЫ',
+                certLessons: ['4 занятия', '8 занятий'],
+                reviews: [
+                    '«Хорошая музыкальная школа с классным обучением! Преподаватели внимательные и профессиональные, занятия проходят интересно и вдохновляюще. Результаты заметны быстро, рекомендую для всех, кто хочет научиться музыке.»',
+                    '«Хорошая школа. Современный ремонт, приятно находиться внутри. Очень творческая атмосфера, современное оборудование. Хожу на вокал к Илье Мичурину. Очень нравится подход педагога, объясняет все очень понятно. С первых занятий уже был небольшой результат и прогресс»',
+                    '«Я очень довольна уроками, которые я получаю в музыкальной школе Kodi. Преподаватель по барабанам — Константин профессионально подходит к обучению и создаёт теплую и поддерживающую атмосферу. Особенно хочу отметить качество обучения игре на барабанах — занятия интересные, информативные и эффективные. Благодаря музыкальной школе Kodi я значительно улучшила свои навыки и стала более уверенно играть на этом инструменте. Очень рекомендую эту школу всем, кто хочет развивать свой музыкальный талант!»'
+                ],
+                cert1: 'ДОЛГОПРУДНЫЙ', cert2: 'МОСКВА (ФЛОТСКАЯ)', certTitle: 'ПОДАРОЧНЫЙ<br>СЕРТИФИКАТ',
+                reviewsLabel: '04 / ОТЗЫВЫ', reviewsTitle: 'ОТЗЫВЫ УЧЕНИКОВ', consentPrefix: 'Я ознакомлен(а) с',
+                posterBy: 'by Vasilii Rybin',
+                contactsLabel: '05 / КОНТАКТЫ',
+                namePlaceholder: 'Ваше Имя', methodLabel: 'Удобный способ связи', privacy: 'Политикой обработки персональных данных',
+                send: 'Отправить заявку',
+                modalTitle: 'БЕСПЛАТНЫЙ УРОК', modalSubtitle: 'Заполните форму и выберите удобный способ связи.',
+                branch: 'Филиал', contactHow: 'Как с вами связаться?', yourName: 'Ваше имя', phoneNick: 'Номер телефона / никнейм', direction: 'Направление',
+                callback: 'Обратный звонок', directionOptions: ['Вокал','Гитара (Электро/Акустика)','Фортепиано','Барабаны']
+            },
+            en: {
+                nav: ['ABOUT', 'DIRECTIONS', 'CERTIFICATES', 'REVIEWS', 'CONTACTS'],
+                heroTop: 'MUSIC / PEOPLE / HOME',
+                heroSubtitle: 'Music school in Moscow and Dolgoprudny',
+                heroButton: 'Book a lesson',
+                freeLesson: '• FIRST LESSON FREE •',
+                location: 'MOSCOW / DOLGOPRUDNY',
+                scroll: 'SCROLL ↓',
+                aboutLabel: '01 / ABOUT',
+                aboutTitle: 'MUSIC<br><span>- feels like home.</span>',
+                aboutP1: '<strong>KODI</strong> means “HOME” in Finnish. It is no coincidence: we created a space where everyone feels comfortable and learning brings joy and fast results.',
+                aboutP2: 'The studio is led by Vasilii Rybin, a musician and director. At KODI we teach not just academic notes, but real music and self-expression.',
+                aboutP3: 'Welcome home, to KODI!',
+                founderRole: 'Founder &amp; Head of KODI',
+                directionsLabel: '02 / DIRECTIONS',
+                teachers: 'Teachers', back: 'Back', book: 'Book now',
+                cards: [
+                    ['Vocal', 'Develops emotional expression and stage presence.', 'Vocal Teacher', '8+ years / Stage experience'],
+                    ['Guitar (Electric/Acoustic)', 'Develops fine motor skills and understanding of harmony.', 'Guitar Teacher', 'Concert musician'],
+                    ['Piano', 'Improves musical hearing and coordination of both hands.', 'Piano Teacher', 'Competition laureate'],
+                    ['Drums', 'Develops rhythm and movement coordination.', 'Drums Teacher', 'Session drummer']
+                ],
+                certificatesLabel: '03 / CERTIFICATES',
+                certLessons: ['4 lessons', '8 lessons'],
+                reviews: [
+                    '“A great music school with excellent teaching! The teachers are attentive and professional, and the lessons are interesting and inspiring. The results come quickly. I recommend it to anyone who wants to learn music.”',
+                    '“A great school. Modern renovation and a pleasant atmosphere. Very creative environment and modern equipment. I take vocal lessons with Ilya Michurin and really like his approach. He explains everything very clearly. There was noticeable progress from the first lessons.”',
+                    '“I am very happy with the lessons I receive at KODI music school. The drum teacher Konstantin is professional and creates a warm, supportive atmosphere. The drum lessons are interesting, informative and effective. Thanks to KODI I have significantly improved my skills and feel more confident playing. I highly recommend this school to anyone who wants to develop their musical talent!”'
+                ],
+                cert1: 'DOLGOPRUDNY', cert2: 'MOSCOW (FLOTSKAYA)', certTitle: 'GIFT<br>CERTIFICATE',
+                reviewsLabel: '04 / REVIEWS', reviewsTitle: 'STUDENT REVIEWS', consentPrefix: 'I have read and agree to',
+                posterBy: 'by Vasilii Rybin',
+                contactsLabel: '05 / CONTACTS',
+                namePlaceholder: 'Your Name', methodLabel: 'Preferred contact method', privacy: 'Privacy Policy',
+                send: 'Send request',
+                modalTitle: 'FREE LESSON', modalSubtitle: 'Fill in the form and choose a convenient way to contact you.',
+                branch: 'Branch', contactHow: 'How can we contact you?', yourName: 'Your name', phoneNick: 'Phone number / username', direction: 'Direction',
+                callback: 'Phone call', directionOptions: ['Vocal','Guitar (Electric/Acoustic)','Piano','Drums']
+            }
+        };
+
+        function setText(selector, value, html) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(function (el) {
+                if (html) el.innerHTML = value;
+                else el.textContent = value;
+            });
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            if (languageSwitch) languageSwitch.textContent = lang === 'ru' ? 'EN' : 'RU';
+
+            document.querySelectorAll('.nav a').forEach((el, i) => { if (t.nav[i]) el.textContent = t.nav[i]; });
+            setText('.hero-top', t.heroTop);
+            setText('.hero-subtitle', t.heroSubtitle);
+            setText('.hero-booking-button', t.heroButton);
+            setText('.btn-round-text textPath', t.freeLesson);
+            setText('.hero-bottom span:nth-child(1)', t.location);
+            setText('.hero-bottom span:nth-child(2)', t.scroll);
+            const labels = document.querySelectorAll('.section-label');
+            if (labels[0]) labels[0].textContent = t.aboutLabel;
+            if (labels[1]) labels[1].textContent = t.directionsLabel;
+            if (labels[2]) labels[2].textContent = t.certificatesLabel;
+            if (labels[3]) labels[3].textContent = t.reviewsLabel;
+            if (labels[4]) labels[4].textContent = t.contactsLabel;
+            setText('.about-info h2', t.aboutTitle, true);
+            setText('.about-text p:nth-child(1)', t.aboutP1, true);
+            setText('.about-text p:nth-child(2)', t.aboutP2, true);
+            setText('.about-text p:nth-child(3)', t.aboutP3);
+            setText('.founder-role', t.founderRole, true);
+            setText('.teachers-btn-label', t.teachers);
+            setText('.course-submit-btn', t.book);
+            setText('.cert-header-title:nth-child(1)', t.cert1);
+            const certHeaders = document.querySelectorAll('.cert-header-title');
+            if (certHeaders[0]) certHeaders[0].textContent = t.cert1;
+            if (certHeaders[1]) certHeaders[1].textContent = t.cert2;
+            setText('.cert-main-title', t.certTitle, true);
+            const reviewsTitle = document.getElementById('reviewsTitle');
+            if (reviewsTitle) reviewsTitle.textContent = t.reviewsTitle;
+            const consentPrefix = document.querySelector('.consent-prefix');
+            if (consentPrefix) consentPrefix.textContent = t.consentPrefix;
+            document.querySelectorAll('.cert-price-item > span').forEach((el, i) => {
+                if (t.certLessons[i]) el.textContent = t.certLessons[i];
+            });
+            document.querySelectorAll('.review-text').forEach((el, i) => {
+                if (t.reviews[i]) el.textContent = t.reviews[i];
+            });
+            setText('.poster-by', t.posterBy);
+
+            const modalTitle = document.querySelector('.modal-title');
+            const modalSubtitle = document.querySelector('.modal-subtitle');
+            if (modalTitle) modalTitle.textContent = t.modalTitle;
+            if (modalSubtitle) modalSubtitle.textContent = t.modalSubtitle;
+            const labelsForm = document.querySelectorAll('#bookingForm .form-label');
+            [t.branch, t.contactHow, t.yourName, t.phoneNick, t.direction].forEach((v, i) => { if (labelsForm[i]) labelsForm[i].textContent = v; });
+            const footerLabel = document.querySelector('.field-label-small');
+            if (footerLabel) footerLabel.textContent = t.methodLabel;
+            const footerSubmit = document.getElementById('footerSubmitBtn');
+            if (footerSubmit) footerSubmit.textContent = t.send;
+            const modalSubmit = document.getElementById('submitBtn');
+            if (modalSubmit) modalSubmit.textContent = t.send;
+            const footerName = document.getElementById('footerName');
+            if (footerName) footerName.placeholder = t.namePlaceholder;
+            const footerPhone = document.getElementById('footerPhone');
+            if (footerPhone) footerPhone.placeholder = lang === 'ru' ? '+7 (999) 000-00-00' : '+7 (999) 000-00-00';
+            const userName = document.getElementById('userNameInput');
+            if (userName) userName.placeholder = lang === 'ru' ? 'Иван' : 'John';
+            const userContact = document.getElementById('userContactInput');
+            if (userContact) userContact.placeholder = lang === 'ru' ? '+7 (999) 000-00-00 или @username' : '+7 (999) 000-00-00 or @username';
+            const methodOptions = document.querySelectorAll('#footerMethod option, #contactMethodSelect option');
+            methodOptions.forEach((opt, i) => {
+                const value = i % 3 === 0 ? t.callback : opt.textContent;
+                if (opt.parentElement.id === 'footerMethod') {
+                    opt.textContent = [lang === 'ru' ? 'Telegram' : 'Telegram', lang === 'ru' ? 'WhatsApp' : 'WhatsApp', t.callback][i];
+                } else {
+                    opt.textContent = [t.callback, 'Telegram', 'WhatsApp'][i];
+                }
+            });
+            const directionOptions = document.querySelectorAll('#directionSelect option');
+            directionOptions.forEach((opt, i) => { if (t.directionOptions[i]) opt.textContent = t.directionOptions[i]; });
+            const addresses = document.querySelectorAll('.contact-address');
+            if (addresses[0]) addresses[0].textContent = lang === 'ru' ? 'г. Москва, Флотская ул., 7, корп. 1' : 'Moscow, Flotskaya St., 7, bldg. 1';
+            if (addresses[1]) addresses[1].textContent = lang === 'ru' ? 'г. Долгопрудный, ул. Новый бульвар, д. 22' : 'Dolgoprudny, Novy Boulevard, 22';
+            const legal = document.querySelectorAll('.contacts-legal span');
+            const legalEn = ['IE Vasilii Rybin', 'TIN: 504712859516', 'PSRNIP: 325508100451723', 'Legal address: Dolgoprudny, Novy Boulevard, 22, floor 1, apt. 1'];
+            legal.forEach((el, i) => { if (lang === 'en' && legalEn[i]) el.textContent = legalEn[i]; });
+            if (lang === 'ru') {
+                const legalRu = ['ИП Рыбин Василий Викторович', 'ИНН: 504712859516', 'ОГРНИП: 325508100451723', 'Юр. адрес: г. Долгопрудный, ул. Новый бульвар, д. 22, этаж 1, кв. 1'];
+                legal.forEach((el, i) => { if (legalRu[i]) el.textContent = legalRu[i]; });
+            }
+            const privacyLink = document.querySelector('.open-privacy-modal');
+            if (privacyLink) privacyLink.textContent = t.privacy;
+
+            const cards = document.querySelectorAll('.flip-container');
+            cards.forEach((card, i) => {
+                if (!t.cards[i]) return;
+                const frontTitle = card.querySelector('.card-front .course-title');
+                const desc = card.querySelector('.card-front .course-desc');
+                const teacherName = card.querySelector('.card-back .teacher-info h4');
+                const teacherExp = card.querySelector('.card-back .teacher-info p');
+                if (frontTitle) frontTitle.textContent = t.cards[i][0];
+                if (desc) desc.textContent = t.cards[i][1];
+                if (teacherName) teacherName.textContent = t.cards[i][2];
+                if (teacherExp) teacherExp.textContent = t.cards[i][3];
+                const directionButton = card.querySelectorAll('.course-submit-btn');
+                directionButton.forEach(btn => btn.textContent = t.book);
+                const backHeader = card.querySelector('.card-back .course-number');
+                if (backHeader) backHeader.textContent = t.teachers.toUpperCase();
+            });
+
+            // Сохраняем выбранный язык после перезагрузки.
+            try { localStorage.setItem('kodi-language', lang); } catch (e) {}
+        }
+
+        if (languageSwitch) {
+            languageSwitch.addEventListener('click', function () {
+                applyLanguage(currentLanguage === 'ru' ? 'en' : 'ru');
+            });
+        }
+
+        let savedLanguage = 'ru';
+        try { savedLanguage = localStorage.getItem('kodi-language') || 'ru'; } catch (e) {}
+        applyLanguage(savedLanguage === 'en' ? 'en' : 'ru');
+    })();
+    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
