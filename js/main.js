@@ -398,7 +398,7 @@ function initMap() {
             methods: [
                 'Обратный звонок',
                 'Telegram',
-                'WhatsApp'
+                'Max'
             ],
 
             directionOptions: [
@@ -515,7 +515,7 @@ function initMap() {
             methods: [
                 'Phone call',
                 'Telegram',
-                'WhatsApp'
+                'Max'
             ],
 
             directionOptions: [
@@ -893,16 +893,38 @@ function initMap() {
 
     /*
      * =========================================================
-     * ФОРМЫ
+     * ФОРМЫ И ОТПРАВКА В TELEGRAM
      * =========================================================
-     *
-     * Здесь предотвращается стандартная перезагрузка страницы.
-     * Отправку в Telegram/API можно подключить внутри обработчиков.
      */
 
+    const TELEGRAM_BOT_TOKEN = '8860439275:AAFZP25yCAgSgJqacUja4pfs_vKTzdR5atU'; 
+    const TELEGRAM_CHAT_ID = '1314400594';
+
+    async function sendToTelegram(messageText) {
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: messageText,
+                parse_mode: 'HTML'
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Ошибка отправки сообщения');
+        }
+        return await response.json();
+    }
+
+    // 1. Форма в модальном окне
     const bookingForm = document.getElementById('bookingForm');
 
-    bookingForm?.addEventListener('submit', (event) => {
+    bookingForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         if (!bookingForm.checkValidity()) {
@@ -910,19 +932,39 @@ function initMap() {
             return;
         }
 
-        /*
-         * Здесь можно вызвать fetch() для отправки данных.
-         */
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) submitBtn.disabled = true;
 
-        closeBookingModal();
-        bookingForm.reset();
+        const branch = document.getElementById('branchSelect')?.value || '-';
+        const contactMethod = document.getElementById('contactMethodSelect')?.value || '-';
+        const name = document.getElementById('userNameInput')?.value || '-';
+        const contact = document.getElementById('userContactInput')?.value || '-';
+        const direction = document.getElementById('directionSelect')?.value || '-';
+
+        const text = `<b>🔥 Заявка на бесплатный урок!</b>\n\n` +
+                     `<b>Филиал:</b> ${branch}\n` +
+                     `<b>Направление:</b> ${direction}\n` +
+                     `<b>Имя:</b> ${name}\n` +
+                     `<b>Контакт:</b> ${contact}\n` +
+                     `<b>Способ связи:</b> ${contactMethod}`;
+
+        try {
+            await sendToTelegram(text);
+            alert('Заявка успешно отправлена!');
+            closeBookingModal();
+            bookingForm.reset();
+        } catch (error) {
+            console.error(error);
+            alert('Не удалось отправить заявку. Попробуйте еще раз.');
+        } finally {
+            if (submitBtn) submitBtn.disabled = false;
+        }
     });
 
-    const footerContactsForm = document.getElementById(
-        'footerContactsForm'
-    );
+    // 2. Форма в футере сайта
+    const footerContactsForm = document.getElementById('footerContactsForm');
 
-    footerContactsForm?.addEventListener('submit', (event) => {
+    footerContactsForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         if (!footerContactsForm.checkValidity()) {
@@ -930,10 +972,27 @@ function initMap() {
             return;
         }
 
-        /*
-         * Здесь можно вызвать fetch() для отправки данных.
-         */
+        const submitBtn = document.getElementById('footerSubmitBtn');
+        if (submitBtn) submitBtn.disabled = true;
 
-        footerContactsForm.reset();
+        const name = document.getElementById('footerName')?.value || '-';
+        const contact = document.getElementById('footerContact')?.value || '-';
+        const method = document.getElementById('footerMethod')?.value || '-';
+
+        const text = `<b>📩 Заявка из футера</b>\n\n` +
+                     `<b>Имя:</b> ${name}\n` +
+                     `<b>Контакт:</b> ${contact}\n` +
+                     `<b>Способ связи:</b> ${method}`;
+
+        try {
+            await sendToTelegram(text);
+            alert('Заявка успешно отправлена!');
+            footerContactsForm.reset();
+        } catch (error) {
+            console.error(error);
+            alert('Не удалось отправить заявку. Попробуйте еще раз.');
+        } finally {
+            if (submitBtn) submitBtn.disabled = false;
+        }
     });
 });

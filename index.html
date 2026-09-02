@@ -482,7 +482,7 @@
                     <span class="field-label-small">Удобный способ связи</span>
                     <select class="input-styled select-styled" id="footerMethod">
                         <option value="Telegram">Telegram</option>
-                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Max">Max</option>
                         <option value="Звонок">Обратный звонок</option>
                     </select>
 
@@ -518,7 +518,7 @@
                     <select class="form-control" id="contactMethodSelect">
                         <option>Обратный звонок</option>
                         <option>Telegram</option>
-                        <option>WhatsApp</option>
+                        <option>Max</option>
                     </select>
                 </div>
 
@@ -790,9 +790,9 @@
             methodOptions.forEach((opt, i) => {
                 const value = i % 3 === 0 ? t.callback : opt.textContent;
                 if (opt.parentElement.id === 'footerMethod') {
-                    opt.textContent = [lang === 'ru' ? 'Telegram' : 'Telegram', lang === 'ru' ? 'WhatsApp' : 'WhatsApp', t.callback][i];
+                    opt.textContent = [lang === 'ru' ? 'Telegram' : 'Telegram', lang === 'ru' ? 'Max' : 'Max', t.callback][i];
                 } else {
-                    opt.textContent = [t.callback, 'Telegram', 'WhatsApp'][i];
+                    opt.textContent = [t.callback, 'Telegram', 'Max'][i];
                 }
             });
             const directionOptions = document.querySelectorAll('#directionSelect option');
