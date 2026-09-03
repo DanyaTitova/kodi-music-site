@@ -1,12 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
 
-    /*
-     * =========================================================
-     * ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-     * =========================================================
-     */
-
     function setText(selector, value, useHTML = false) {
         document.querySelectorAll(selector).forEach((element) => {
             if (useHTML) {
@@ -48,12 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /*
-     * =========================================================
-     * МОБИЛЬНОЕ МЕНЮ
-     * =========================================================
-     */
-    /* Инициализация Яндекс Карт */
 if (typeof ymaps !== 'undefined') {
     ymaps.ready(initMap);
 }
@@ -63,7 +51,7 @@ function initMap() {
     if (!mapElement) return;
 
     const map = new ymaps.Map('yandexMap', {
-        center: [55.875, 37.485], // Центрирование между Москвой и Долгопрудным
+        center: [55.875, 37.485], 
         zoom: 11,
         controls: ['zoomControl']
     });
@@ -145,12 +133,6 @@ function initMap() {
     }
 
 
-    /*
-     * =========================================================
-     * ПЕРЕВОРОТ КАРТОЧЕК
-     * =========================================================
-     */
-
     document.querySelectorAll('.flip-container').forEach((container) => {
         const toggles = container.querySelectorAll('.flip-toggle');
 
@@ -183,11 +165,6 @@ function initMap() {
     });
 
 
-    /*
-     * =========================================================
-     * МОДАЛЬНОЕ ОКНО ЗАПИСИ
-     * =========================================================
-     */
 
     const bookingModal = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
@@ -199,12 +176,6 @@ function initMap() {
 
     function openBookingModal(directionValue = '') {
         if (!bookingModal) return;
-
-        /*
-         * Значения option не переводятся.
-         * Благодаря этому выбор направления работает как
-         * в русской, так и в английской версии.
-         */
         if (directionValue && directionSelect) {
             const matchingOption = Array.from(directionSelect.options).find(
                 (option) => option.value === directionValue
@@ -242,12 +213,6 @@ function initMap() {
     });
 
 
-    /*
-     * =========================================================
-     * МОДАЛЬНОЕ ОКНО ПОЛИТИКИ
-     * =========================================================
-     */
-
     const privacyModal = document.getElementById('privacyModal');
     const privacyClose = document.querySelector('.privacy-modal-close');
 
@@ -280,13 +245,6 @@ function initMap() {
         closeOverlay(bookingModal);
         closeOverlay(privacyModal);
     });
-
-
-    /*
-     * =========================================================
-     * ЛОКАЛИЗАЦИЯ
-     * =========================================================
-     */
 
     const languageSwitch = document.getElementById('languageSwitch');
     let currentLanguage = 'ru';
@@ -528,11 +486,6 @@ function initMap() {
     };
 
 
-    /*
-     * Обновляет текст option, но сохраняет исходные value.
-     * Это устраняет конфликт между локализацией и
-     * data-direction у кнопок карточек.
-     */
     function updateSelectOptions(select, labels) {
         if (!select || !labels) return;
 
@@ -681,10 +634,7 @@ function initMap() {
 
         document.querySelectorAll('.cert-price-item > span').forEach(
             (element, index) => {
-                /*
-                 * В каждой карточке повторяются 4 и 8 занятий,
-                 * поэтому используется остаток от деления.
-                 */
+               
                 const lessonIndex = index % t.certLessons.length;
 
                 element.textContent = t.certLessons[lessonIndex];
@@ -891,22 +841,16 @@ function initMap() {
     applyLanguage('ru');
 
 
-    /*
-     * =========================================================
-     * ФОРМЫ И ОТПРАВКА В TELEGRAM
-     * =========================================================
-     */
-
     const TELEGRAM_BOT_TOKEN = '8606342818:AAFmFMZX_Am6kfnw39mjS7dJKSsDU_0rZ2g'; 
 
-    // ID по умолчанию (например, для формы в футере или если филиал не выбран)
+    // ID по умолчанию 
     const DEFAULT_CHAT_ID = '8403863164'; 
 
     // ID для разных филиалов
     const CHAT_ID_DOLGOPRUDNY = '5025669951';
     const CHAT_ID_FLOTSKAYA = '8403863164';
 
-    // Функция отправки сообщений (принимает текст и конкретный chatId)
+    // Функция отправки сообщений 
     async function sendToTelegram(messageText, chatId = DEFAULT_CHAT_ID) {
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         
@@ -928,7 +872,6 @@ function initMap() {
         return await response.json();
     }
 
-    // 1. Модальная форма записи с распределением по филиалам
     const bookingForm = document.getElementById('bookingForm');
 
     bookingForm?.addEventListener('submit', async (event) => {
@@ -948,7 +891,6 @@ function initMap() {
         const contact = document.getElementById('userContactInput')?.value || '-';
         const direction = document.getElementById('directionSelect')?.value || '-';
 
-        // Выбираем получателя в зависимости от выбранного филиала
         let targetChatId = CHAT_ID_FLOTSKAYA; // По умолчанию — Флотская
         if (branch.includes('Долгопрудный') || branch.includes('dolgoprudny')) {
             targetChatId = CHAT_ID_DOLGOPRUDNY;
@@ -974,7 +916,6 @@ function initMap() {
         }
     });
 
-    // 2. Форма в футере (отправляет на DEFAULT_CHAT_ID)
     const footerContactsForm = document.getElementById('footerContactsForm');
 
     footerContactsForm?.addEventListener('submit', async (event) => {

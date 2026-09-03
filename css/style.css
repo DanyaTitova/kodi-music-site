@@ -348,7 +348,6 @@ section { padding: 120px 6%; position: relative; }
 .founder-name { font-family: var(--font-unbounded); font-size: 20px; font-weight: 700; color: var(--text-white); text-transform: uppercase; }
 .founder-role { font-size: 12px; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
 
-/* DIRECTIONS SECTION */
 .directions-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1539,7 +1538,6 @@ select.form-control {
     z-index: 1;
     transform: rotateY(180deg);
 
-    /* Полностью непрозрачная обратная сторона */
     background: #141518;
     background-color: #141518;
     opacity: 1;
@@ -1576,10 +1574,6 @@ select.form-control {
     opacity: 1;
 }
 
-
-/* =========================================================
-   ИСПРАВЛЕНИЯ МОДАЛЬНЫХ ОКОН
-   ========================================================= */
 
 .modal-overlay {
     position: fixed;
@@ -1665,15 +1659,11 @@ select.form-control {
 }
 
 
-/* Не позволяем фону прокручиваться под модальным окном */
 body.modal-open {
     overflow: hidden;
 }
 
 
-/* =========================================================
-   МОБИЛЬНАЯ ВЕРСИЯ
-   ========================================================= */
 
 @media (max-width: 900px) {
     .header {
@@ -1752,11 +1742,6 @@ body.modal-open {
         border-radius: 20px;
     }
 
-    /*
-       Модальное окно всегда располагается по центру.
-       margin:auto дополнительно удерживает его по центру,
-       если содержимое становится выше доступной области.
-    */
     .modal-overlay {
         align-items: center;
         justify-content: center;
@@ -1809,7 +1794,6 @@ body.modal-open {
         padding: 28px 16px 20px;
     }
 }
-/* Удаляем старое переопределение и задаем единый стиль для инпутов и селектов */
 .modal-card .form-control {
     width: 100%;
     min-height: 48px;
@@ -1824,7 +1808,6 @@ body.modal-open {
     transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
-/* Полный сброс нативных стилей <select> */
 .modal-card select.form-control {
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
@@ -1833,19 +1816,16 @@ body.modal-open {
     padding-right: 40px;
     cursor: pointer;
     
-    /* Добавляем единую аккуратную стрелку вместо системных двойных */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%25237E7E8C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
 }
 
-/* Эффект при фокусе */
 .modal-card .form-control:focus {
     border-color: rgba(255, 255, 255, 0.35);
     background-color: #202228;
 }
 
-/* Стиль раскрывающегося списка выпадашки */
 .modal-card select.form-control option {
     background-color: #141518;
     color: #ffffff;
