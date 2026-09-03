@@ -447,7 +447,7 @@ function initMap() {
                     title: 'Vocal',
                     description:
                         'Develops emotional expression and stage presence.',
-                    teacher: 'Ilya Michurin',
+                    teacher: 'Vocal teacher',
                     experience: 'Vocal teacher / Stage experience'
                 },
                 {
