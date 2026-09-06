@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateBodyLock() {
         const hasOpenModal = document.querySelector('.modal-overlay.active');
-
         body.classList.toggle('modal-open', Boolean(hasOpenModal));
     }
 
@@ -41,43 +40,49 @@ document.addEventListener('DOMContentLoaded', () => {
         updateBodyLock();
     }
 
+    function initMap() {
+        const mapElement = document.getElementById('yandexMap');
+        if (!mapElement) return;
 
-if (typeof ymaps !== 'undefined') {
-    ymaps.ready(initMap);
-}
+        const map = new ymaps.Map('yandexMap', {
+            center: [55.875, 37.485],
+            zoom: 11,
+            controls: ['zoomControl']
+        });
 
-function initMap() {
-    const mapElement = document.getElementById('yandexMap');
-    if (!mapElement) return;
+        const dolgoprudnyPlacemark = new ymaps.Placemark(
+            [55.9398, 37.5142],
+            {
+                balloonContentHeader: 'KODI MUSIC CLASS',
+                balloonContentBody: 'г. Долгопрудный, ул. Новый бульвар, д. 22',
+                hintContent: 'KODI — Долгопрудный'
+            },
+            {
+                preset: 'islands#orangeDotIcon'
+            }
+        );
 
-    const map = new ymaps.Map('yandexMap', {
-        center: [55.875, 37.485], 
-        zoom: 11,
-        controls: ['zoomControl']
-    });
+        const moscowPlacemark = new ymaps.Placemark(
+            [55.8562, 37.4862],
+            {
+                balloonContentHeader: 'KODI MUSIC CLASS',
+                balloonContentBody: 'г. Москва, Флотская ул., 7, корп. 1',
+                hintContent: 'KODI — Москва'
+            },
+            {
+                preset: 'islands#orangeDotIcon'
+            }
+        );
 
-    // Филиал в Долгопрудном
-    const dolgoprudnyPlacemark = new ymaps.Placemark([55.9398, 37.5142], {
-        balloonContentHeader: 'KODI MUSIC CLASS',
-        balloonContentBody: 'г. Долгопрудный, ул. Новый бульвар, д. 22',
-        hintContent: 'KODI — Долгопрудный'
-    }, {
-        preset: 'islands#orangeDotIcon'
-    });
+        map.geoObjects.add(dolgoprudnyPlacemark);
+        map.geoObjects.add(moscowPlacemark);
+        map.behaviors.disable('scrollZoom');
+    }
 
-    // Филиал в Москве
-    const moscowPlacemark = new ymaps.Placemark([55.8562, 37.4862], {
-        balloonContentHeader: 'KODI MUSIC CLASS',
-        balloonContentBody: 'г. Москва, Флотская ул., 7, корп. 1',
-        hintContent: 'KODI — Москва'
-    }, {
-        preset: 'islands#orangeDotIcon'
-    });
+    if (typeof ymaps !== 'undefined') {
+        ymaps.ready(initMap);
+    }
 
-    map.geoObjects.add(dolgoprudnyPlacemark);
-    map.geoObjects.add(moscowPlacemark);
-    map.behaviors.disable('scrollZoom');
-}
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const mainNav = document.getElementById('mainNav');
 
@@ -132,7 +137,6 @@ function initMap() {
         });
     }
 
-
     document.querySelectorAll('.flip-container').forEach((container) => {
         const toggles = container.querySelectorAll('.flip-toggle');
 
@@ -164,8 +168,6 @@ function initMap() {
         });
     });
 
-
-
     const bookingModal = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
     const directionSelect = document.getElementById('directionSelect');
@@ -176,6 +178,7 @@ function initMap() {
 
     function openBookingModal(directionValue = '') {
         if (!bookingModal) return;
+
         if (directionValue && directionSelect) {
             const matchingOption = Array.from(directionSelect.options).find(
                 (option) => option.value === directionValue
@@ -211,7 +214,6 @@ function initMap() {
             closeBookingModal();
         }
     });
-
 
     const privacyModal = document.getElementById('privacyModal');
     const privacyClose = document.querySelector('.privacy-modal-close');
@@ -485,7 +487,6 @@ function initMap() {
         }
     };
 
-
     function updateSelectOptions(select, labels) {
         if (!select || !labels) return;
 
@@ -523,25 +524,11 @@ function initMap() {
 
         const sectionLabels = document.querySelectorAll('.section-label');
 
-        if (sectionLabels[0]) {
-            sectionLabels[0].textContent = t.aboutLabel;
-        }
-
-        if (sectionLabels[1]) {
-            sectionLabels[1].textContent = t.directionsLabel;
-        }
-
-        if (sectionLabels[2]) {
-            sectionLabels[2].textContent = t.certificatesLabel;
-        }
-
-        if (sectionLabels[3]) {
-            sectionLabels[3].textContent = t.reviewsLabel;
-        }
-
-        if (sectionLabels[4]) {
-            sectionLabels[4].textContent = t.contactsLabel;
-        }
+        if (sectionLabels[0]) sectionLabels[0].textContent = t.aboutLabel;
+        if (sectionLabels[1]) sectionLabels[1].textContent = t.directionsLabel;
+        if (sectionLabels[2]) sectionLabels[2].textContent = t.certificatesLabel;
+        if (sectionLabels[3]) sectionLabels[3].textContent = t.reviewsLabel;
+        if (sectionLabels[4]) sectionLabels[4].textContent = t.contactsLabel;
 
         setText('.about-info h2', t.aboutTitle, true);
         setText('.about-text p:nth-child(1)', t.aboutP1, true);
@@ -550,71 +537,38 @@ function initMap() {
         setText('.about-text p:nth-child(4)', t.aboutP4);
         setText('.founder-role', t.founderRole, true);
 
-        document.querySelectorAll('.flip-container').forEach(
-            (card, index) => {
-                const cardTranslation = t.cards[index];
+        document.querySelectorAll('.flip-container').forEach((card, index) => {
+            const cardTranslation = t.cards[index];
 
-                if (!cardTranslation) return;
+            if (!cardTranslation) return;
 
-                const frontTeacherLabel = card.querySelector(
-                    '.card-front .teachers-btn-label'
-                );
+            const frontTeacherLabel = card.querySelector(
+                '.card-front .teachers-btn-label'
+            );
+            const backTeacherLabel = card.querySelector(
+                '.card-back .teachers-btn-label'
+            );
+            const backHeading = card.querySelector(
+                '.card-back .course-number'
+            );
+            const title = card.querySelector('.card-front .course-title');
+            const description = card.querySelector('.card-front .course-desc');
+            const teacherName = card.querySelector('.card-back .teacher-info h4');
+            const teacherExperience = card.querySelector(
+                '.card-back .teacher-info p'
+            );
 
-                const backTeacherLabel = card.querySelector(
-                    '.card-back .teachers-btn-label'
-                );
+            if (frontTeacherLabel) frontTeacherLabel.textContent = t.teachers;
+            if (backTeacherLabel) backTeacherLabel.textContent = t.back;
+            if (backHeading) backHeading.textContent = t.teachersHeading;
+            if (title) title.textContent = cardTranslation.title;
+            if (description) description.textContent = cardTranslation.description;
+            if (teacherName) teacherName.textContent = cardTranslation.teacher;
 
-                const backHeading = card.querySelector(
-                    '.card-back .course-number'
-                );
-
-                const title = card.querySelector(
-                    '.card-front .course-title'
-                );
-
-                const description = card.querySelector(
-                    '.card-front .course-desc'
-                );
-
-                const teacherName = card.querySelector(
-                    '.card-back .teacher-info h4'
-                );
-
-                const teacherExperience = card.querySelector(
-                    '.card-back .teacher-info p'
-                );
-
-                if (frontTeacherLabel) {
-                    frontTeacherLabel.textContent = t.teachers;
-                }
-
-                if (backTeacherLabel) {
-                    backTeacherLabel.textContent = t.back;
-                }
-
-                if (backHeading) {
-                    backHeading.textContent = t.teachersHeading;
-                }
-
-                if (title) {
-                    title.textContent = cardTranslation.title;
-                }
-
-                if (description) {
-                    description.textContent =
-                        cardTranslation.description;
-                }
-
-                if (teacherName) {
-                    teacherName.textContent = cardTranslation.teacher;
-                }
-
-                if (teacherExperience) {
-                    teacherExperience.textContent =
-                        cardTranslation.experience;
-                }
+            if (teacherExperience) {
+                teacherExperience.textContent = cardTranslation.experience;
             }
-        );
+        });
 
         setText('.course-submit-btn', t.book);
 
@@ -622,21 +576,14 @@ function initMap() {
             '.cert-header-title'
         );
 
-        if (certificateHeaders[0]) {
-            certificateHeaders[0].textContent = t.cert1;
-        }
-
-        if (certificateHeaders[1]) {
-            certificateHeaders[1].textContent = t.cert2;
-        }
+        if (certificateHeaders[0]) certificateHeaders[0].textContent = t.cert1;
+        if (certificateHeaders[1]) certificateHeaders[1].textContent = t.cert2;
 
         setText('.cert-main-title', t.certTitle, true);
 
         document.querySelectorAll('.cert-price-item > span').forEach(
             (element, index) => {
-               
                 const lessonIndex = index % t.certLessons.length;
-
                 element.textContent = t.certLessons[lessonIndex];
             }
         );
@@ -647,13 +594,11 @@ function initMap() {
             reviewsTitle.textContent = t.reviewsTitle;
         }
 
-        document.querySelectorAll('.review-text').forEach(
-            (element, index) => {
-                if (t.reviews[index]) {
-                    element.textContent = t.reviews[index];
-                }
+        document.querySelectorAll('.review-text').forEach((element, index) => {
+            if (t.reviews[index]) {
+                element.textContent = t.reviews[index];
             }
-        );
+        });
 
         setText('.poster-by', t.posterBy);
 
@@ -663,17 +608,13 @@ function initMap() {
             consentPrefix.textContent = t.consentPrefix;
         }
 
-        const privacyLink = document.querySelector(
-            '.open-privacy-modal'
-        );
+        const privacyLink = document.querySelector('.open-privacy-modal');
 
         if (privacyLink) {
             privacyLink.textContent = t.privacy;
         }
 
-        const footerLabel = document.querySelector(
-            '.field-label-small'
-        );
+        const footerLabel = document.querySelector('.field-label-small');
 
         if (footerLabel) {
             footerLabel.textContent = t.methodLabel;
@@ -685,9 +626,7 @@ function initMap() {
             footerName.placeholder = t.namePlaceholder;
         }
 
-        const footerSubmit = document.getElementById(
-            'footerSubmitBtn'
-        );
+        const footerSubmit = document.getElementById('footerSubmitBtn');
 
         if (footerSubmit) {
             footerSubmit.textContent = t.send;
@@ -696,7 +635,6 @@ function initMap() {
         const modalTitle = document.querySelector(
             '#modalOverlay .modal-title'
         );
-
         const modalSubtitle = document.querySelector(
             '#modalOverlay .modal-subtitle'
         );
@@ -736,13 +674,10 @@ function initMap() {
         const userName = document.getElementById('userNameInput');
 
         if (userName) {
-            userName.placeholder =
-                language === 'ru' ? 'Иван' : 'John';
+            userName.placeholder = language === 'ru' ? 'Иван' : 'John';
         }
 
-        const userContact = document.getElementById(
-            'userContactInput'
-        );
+        const userContact = document.getElementById('userContactInput');
 
         if (userContact) {
             userContact.placeholder =
@@ -761,20 +696,15 @@ function initMap() {
             t.methods
         );
 
-        updateSelectOptions(
-            document.getElementById('footerMethod'),
-            [
-                'Telegram',
-                'WhatsApp',
-                t.callback
-            ]
-        );
+        updateSelectOptions(document.getElementById('footerMethod'), [
+            'Telegram',
+            'WhatsApp',
+            t.callback
+        ]);
 
         updateSelectOptions(directionSelect, t.directionOptions);
 
-        const addresses = document.querySelectorAll(
-            '.contact-address'
-        );
+        const addresses = document.querySelectorAll('.contact-address');
 
         if (addresses[0]) {
             addresses[0].textContent =
@@ -790,9 +720,7 @@ function initMap() {
                     : 'Dolgoprudny, Novy Boulevard, 22';
         }
 
-        const legalElements = document.querySelectorAll(
-            '.contacts-legal span'
-        );
+        const legalElements = document.querySelectorAll('.contacts-legal span');
 
         const legalTexts =
             language === 'ru'
@@ -816,8 +744,7 @@ function initMap() {
         });
 
         if (mobileMenuButton) {
-            const isOpen =
-                mainNav?.classList.contains('mobile-open');
+            const isOpen = mainNav?.classList.contains('mobile-open');
 
             mobileMenuButton.setAttribute(
                 'aria-label',
@@ -833,27 +760,22 @@ function initMap() {
     }
 
     languageSwitch?.addEventListener('click', () => {
-        applyLanguage(
-            currentLanguage === 'ru' ? 'en' : 'ru'
-        );
+        applyLanguage(currentLanguage === 'ru' ? 'en' : 'ru');
     });
 
     applyLanguage('ru');
 
+    const TELEGRAM_BOT_TOKEN =
+        '8606342818:AAFmFMZX_Am6kfnw39mjS7dJKSsDU_0rZ2g';
 
-    const TELEGRAM_BOT_TOKEN = '8606342818:AAFmFMZX_Am6kfnw39mjS7dJKSsDU_0rZ2g'; 
-
-    // ID по умолчанию 
-    const DEFAULT_CHAT_ID = '8403863164'; 
-
-    // ID для разных филиалов
+    const DEFAULT_CHAT_ID = '8403863164';
     const CHAT_ID_DOLGOPRUDNY = '5025669951';
     const CHAT_ID_FLOTSKAYA = '8403863164';
 
-    // Функция отправки сообщений 
     async function sendToTelegram(messageText, chatId = DEFAULT_CHAT_ID) {
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        
+        const url =
+            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -869,6 +791,7 @@ function initMap() {
         if (!response.ok) {
             throw new Error('Ошибка отправки сообщения');
         }
+
         return await response.json();
     }
 
@@ -883,25 +806,36 @@ function initMap() {
         }
 
         const submitBtn = document.getElementById('submitBtn');
-        if (submitBtn) submitBtn.disabled = true;
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+        }
 
         const branch = document.getElementById('branchSelect')?.value || '';
-        const contactMethod = document.getElementById('contactMethodSelect')?.value || '-';
+        const contactMethod =
+            document.getElementById('contactMethodSelect')?.value || '-';
         const name = document.getElementById('userNameInput')?.value || '-';
-        const contact = document.getElementById('userContactInput')?.value || '-';
-        const direction = document.getElementById('directionSelect')?.value || '-';
+        const contact =
+            document.getElementById('userContactInput')?.value || '-';
+        const direction =
+            document.getElementById('directionSelect')?.value || '-';
 
-        let targetChatId = CHAT_ID_FLOTSKAYA; // По умолчанию — Флотская
-        if (branch.includes('Долгопрудный') || branch.includes('dolgoprudny')) {
+        let targetChatId = CHAT_ID_FLOTSKAYA;
+
+        if (
+            branch.includes('Долгопрудный') ||
+            branch.includes('dolgoprudny')
+        ) {
             targetChatId = CHAT_ID_DOLGOPRUDNY;
         }
 
-        const text = `<b>🔥 Новая заявка на бесплатный урок!</b>\n\n` +
-                     `<b>Филиал:</b> ${branch}\n` +
-                     `<b>Направление:</b> ${direction}\n` +
-                     `<b>Имя:</b> ${name}\n` +
-                     `<b>Контакт:</b> ${contact}\n` +
-                     `<b>Способ связи:</b> ${contactMethod}`;
+        const text =
+            `<b>🔥 Новая заявка на бесплатный урок!</b>\n\n` +
+            `<b>Филиал:</b> ${branch}\n` +
+            `<b>Направление:</b> ${direction}\n` +
+            `<b>Имя:</b> ${name}\n` +
+            `<b>Контакт:</b> ${contact}\n` +
+            `<b>Способ связи:</b> ${contactMethod}`;
 
         try {
             await sendToTelegram(text, targetChatId);
@@ -912,11 +846,14 @@ function initMap() {
             console.error(error);
             alert('Не удалось отправить заявку. Попробуйте еще раз.');
         } finally {
-            if (submitBtn) submitBtn.disabled = false;
+            if (submitBtn) {
+                submitBtn.disabled = false;
+            }
         }
     });
 
-    const footerContactsForm = document.getElementById('footerContactsForm');
+    const footerContactsForm =
+        document.getElementById('footerContactsForm');
 
     footerContactsForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -927,16 +864,22 @@ function initMap() {
         }
 
         const submitBtn = document.getElementById('footerSubmitBtn');
-        if (submitBtn) submitBtn.disabled = true;
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+        }
 
         const name = document.getElementById('footerName')?.value || '-';
-        const contact = document.getElementById('footerContact')?.value || '-';
-        const method = document.getElementById('footerMethod')?.value || '-';
+        const contact =
+            document.getElementById('footerContact')?.value || '-';
+        const method =
+            document.getElementById('footerMethod')?.value || '-';
 
-        const text = `<b>📩 Заявка из контактов (футер)</b>\n\n` +
-                     `<b>Имя:</b> ${name}\n` +
-                     `<b>Контакт:</b> ${contact}\n` +
-                     `<b>Способ связи:</b> ${method}`;
+        const text =
+            `<b>📩 Заявка из контактов (футер)</b>\n\n` +
+            `<b>Имя:</b> ${name}\n` +
+            `<b>Контакт:</b> ${contact}\n` +
+            `<b>Способ связи:</b> ${method}`;
 
         try {
             await sendToTelegram(text, DEFAULT_CHAT_ID);
@@ -946,7 +889,10 @@ function initMap() {
             console.error(error);
             alert('Не удалось отправить заявку. Попробуйте еще раз.');
         } finally {
-            if (submitBtn) submitBtn.disabled = false;
+            if (submitBtn) {
+                submitBtn.disabled = false;
+            }
         }
     });
 });
+
