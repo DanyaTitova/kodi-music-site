@@ -612,8 +612,44 @@ section { padding: 120px 6%; position: relative; }
 .teachers-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     margin-top: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.teacher-segment {
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.teacher-segment:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+.teacher-location {
+    margin-bottom: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--poster-orange);
+    text-transform: uppercase;
+}
+
+.teachers-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.teachers-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.teachers-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }
 
 .teacher-item {
@@ -628,6 +664,9 @@ section { padding: 120px 6%; position: relative; }
     border-radius: 50%;
     background-color: #202228;
     object-fit: cover;
+    object-position: center;
+    display: block;
+    flex-shrink: 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1691,4 +1730,38 @@ select.form-control {
 
 body.modal-open {
     overflow: hidden;
+}
+/* Правильная компоновка внутренней части обратной стороны */
+.card-back .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow: hidden; /* Исключает вылезание содержимого за границы карточки */
+}
+
+/* Верхний контейнер обратной стороны карточки */
+.card-back-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0; /* Обязательное условие для корректного overflow у flex-детей */
+}
+
+/* Область скролла для списка преподавателей */
+.teachers-list {
+    flex: 1 1 auto;
+    overflow-y: auto; /* Включает вертикальную прокрутку */
+    margin-top: 10px;
+    padding-right: 6px;
+    /* Убираем устаревшее ограничение по max-height, так как высота теперь рассчитывается автоматически */
+    max-height: none; 
+}
+
+/* Прижим кнопки «Записаться» к нижней части карточки */
+.card-back .course-action {
+    flex-shrink: 0;
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
