@@ -1731,37 +1731,3 @@ select.form-control {
 body.modal-open {
     overflow: hidden;
 }
-/* Правильная компоновка внутренней части обратной стороны */
-.card-back .card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    overflow: hidden; /* Исключает вылезание содержимого за границы карточки */
-}
-
-/* Верхний контейнер обратной стороны карточки */
-.card-back-main {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-height: 0; /* Обязательное условие для корректного overflow у flex-детей */
-}
-
-/* Область скролла для списка преподавателей */
-.teachers-list {
-    flex: 1 1 auto;
-    overflow-y: auto; /* Включает вертикальную прокрутку */
-    margin-top: 10px;
-    padding-right: 6px;
-    /* Убираем устаревшее ограничение по max-height, так как высота теперь рассчитывается автоматически */
-    max-height: none; 
-}
-
-/* Прижим кнопки «Записаться» к нижней части карточки */
-.card-back .course-action {
-    flex-shrink: 0;
-    margin-top: 12px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
