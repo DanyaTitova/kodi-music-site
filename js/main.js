@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: 'Фортепиано',
                     description:
                         'Совершенствует музыкальный слух и синхронную работу обеих рук.',
-                    teacher: 'Чернушкин Алексей',
+                    teacher: 'Чернушкин Сергей',
                     experience: 'Фортепиано'
                 },
                 {
